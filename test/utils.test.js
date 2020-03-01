@@ -1,4 +1,11 @@
-import { getGCD, getLCM, getDecimalsCount } from '../src/utils';
+import {
+  getGCD,
+  getLCM,
+  getDecimalsCount,
+  adjustNegative,
+  getFractionFromNumber,
+  getFractionFromString,
+} from '../src/utils';
 
 describe('getGCD', () => {
   it('getGCD(3, 5) should be 1', () => {
@@ -39,5 +46,35 @@ describe('getDecimalsCount', () => {
 
   it('getDecimalsCount(5.112345678) should be 9', () => {
     expect(getDecimalsCount(5.112345678)).toBe(9);
+  });
+});
+
+describe('adjustNegative', () => {
+  it('adjustNegative can handle 2 negative numbers', () => {
+    expect(adjustNegative({ numerator: -2, denominator: -3 })).toEqual({
+      numerator: 2,
+      denominator: 3,
+    });
+  });
+});
+
+describe('getFractionFromNumber', () => {
+  it('getFractionFromNumber can handle NaN', () => {
+    try {
+      getFractionFromNumber(NaN);
+    } catch (error) {
+      expect(error.message).toEqual('Unsupported number NaN or Infinity');
+    }
+  });
+});
+
+describe('getFractionFromString', () => {
+  it('getFractionFromString can handle one number', () => {
+    const result = getFractionFromString('2');
+
+    expect(result).toEqual({
+      numerator: 2,
+      denominator: 1,
+    });
   });
 });

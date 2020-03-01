@@ -117,10 +117,6 @@ export function getFractionFromString(str) {
     .split('/');
   const length = strArr.length;
 
-  if (!length) {
-    throw new Error("Empty string isn't supported");
-  }
-
   if (length === 1) {
     return getFractionFromNumber(strArr[0]);
   } else if (!Number(strArr[1])) {

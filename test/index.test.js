@@ -82,6 +82,14 @@ describe('FractionCalculator instance', () => {
       denominator: 7,
     });
   });
+
+  it('cannot support object', () => {
+    try {
+      fc({});
+    } catch (error) {
+      expect(error.message).toEqual('Unsupported parameter [object Object]');
+    }
+  });
 });
 
 describe('fraction plus', () => {

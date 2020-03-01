@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
+    "test:cov": "jest --coverage",
     "build:prod": "PROD_ENV=1 webpack --config webpack.config.js",
-    "build:dev": "webpack --config webpack.config.js"
+    "build:dev": "webpack --config webpack.config.js",
+    "open:cov": "open coverage/lcov-report/index.html"
   },
   "repository": {
     "type": "git",

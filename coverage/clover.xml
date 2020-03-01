@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1583056229558" clover="3.2.0">
+  <project timestamp="1583056229558" name="All files">
+    <metrics statements="95" coveredstatements="95" conditionals="28" coveredconditionals="28" methods="18" coveredmethods="18" elements="141" coveredelements="141" complexity="0" loc="95" ncloc="95" packages="1" files="2" classes="2"/>
+    <file name="index.js" path="/Users/djiang/Code/Mine/fraction calculator/src/index.js">
+      <metrics statements="47" coveredstatements="47" conditionals="10" coveredconditionals="10" methods="9" coveredmethods="9"/>
+      <line num="9" count="47" type="stmt"/>
+      <line num="12" count="1" type="stmt"/>
+      <line num="14" count="1" type="stmt"/>
+      <line num="15" count="47" type="stmt"/>
+      <line num="17" count="1" type="stmt"/>
+      <line num="20" count="1" type="stmt"/>
+      <line num="21" count="102" type="cond" truecount="2" falsecount="0"/>
+      <line num="22" count="39" type="stmt"/>
+      <line num="23" count="63" type="cond" truecount="2" falsecount="0"/>
+      <line num="24" count="60" type="stmt"/>
+      <line num="25" count="3" type="cond" truecount="2" falsecount="0"/>
+      <line num="26" count="2" type="stmt"/>
+      <line num="29" count="1" type="stmt"/>
+      <line num="33" count="1" type="stmt"/>
+      <line num="35" count="1" type="stmt"/>
+      <line num="38" count="33" type="stmt"/>
+      <line num="40" count="33" type="cond" truecount="2" falsecount="0"/>
+      <line num="41" count="9" type="stmt"/>
+      <line num="44" count="24" type="cond" truecount="2" falsecount="0"/>
+      <line num="45" count="1" type="stmt"/>
+      <line num="47" count="23" type="stmt"/>
+      <line num="50" count="1" type="stmt"/>
+      <line num="53" count="2" type="stmt"/>
+      <line num="55" count="2" type="stmt"/>
+      <line num="59" count="1" type="stmt"/>
+      <line num="60" count="15" type="stmt"/>
+      <line num="61" count="15" type="stmt"/>
+      <line num="62" count="15" type="stmt"/>
+      <line num="67" count="15" type="stmt"/>
+      <line num="68" count="15" type="stmt"/>
+      <line num="70" count="15" type="stmt"/>
+      <line num="75" count="15" type="stmt"/>
+      <line num="76" count="15" type="stmt"/>
+      <line num="79" count="1" type="stmt"/>
+      <line num="80" count="9" type="stmt"/>
+      <line num="81" count="9" type="stmt"/>
+      <line num="83" count="9" type="stmt"/>
+      <line num="86" count="1" type="stmt"/>
+      <line num="87" count="20" type="stmt"/>
+      <line num="88" count="20" type="stmt"/>
+      <line num="90" count="20" type="stmt"/>
+      <line num="95" count="20" type="stmt"/>
+      <line num="96" count="20" type="stmt"/>
+      <line num="99" count="1" type="stmt"/>
+      <line num="100" count="11" type="stmt"/>
+      <line num="101" count="11" type="stmt"/>
+      <line num="103" count="11" type="stmt"/>
+    </file>
+    <file name="utils.js" path="/Users/djiang/Code/Mine/fraction calculator/src/utils.js">
+      <metrics statements="48" coveredstatements="48" conditionals="18" coveredconditionals="18" methods="9" coveredmethods="9"/>
+      <line num="4" count="146" type="stmt"/>
+      <line num="6" count="146" type="stmt"/>
+      <line num="7" count="146" type="stmt"/>
+      <line num="8" count="146" type="stmt"/>
+      <line num="9" count="146" type="stmt"/>
+      <line num="12" count="146" type="stmt"/>
+      <line num="20" count="18" type="stmt"/>
+      <line num="24" count="108" type="cond" truecount="2" falsecount="0"/>
+      <line num="28" count="126" type="stmt"/>
+      <line num="30" count="126" type="cond" truecount="4" falsecount="0"/>
+      <line num="31" count="1" type="stmt"/>
+      <line num="35" count="125" type="cond" truecount="4" falsecount="0"/>
+      <line num="36" count="53" type="stmt"/>
+      <line num="42" count="72" type="stmt"/>
+      <line num="46" count="125" type="stmt"/>
+      <line num="47" count="125" type="stmt"/>
+      <line num="49" count="125" type="stmt"/>
+      <line num="54" count="125" type="stmt"/>
+      <line num="56" count="125" type="stmt"/>
+      <line num="60" count="15" type="stmt"/>
+      <line num="61" count="15" type="stmt"/>
+      <line num="62" count="15" type="stmt"/>
+      <line num="63" count="15" type="stmt"/>
+      <line num="64" count="15" type="stmt"/>
+      <line num="66" count="15" type="stmt"/>
+      <line num="67" count="15" type="stmt"/>
+      <line num="69" count="15" type="stmt"/>
+      <line num="82" count="34" type="stmt"/>
+      <line num="84" count="34" type="stmt"/>
+      <line num="86" count="34" type="stmt"/>
+      <line num="90" count="41" type="stmt"/>
+      <line num="92" count="41" type="cond" truecount="2" falsecount="0"/>
+      <line num="93" count="1" type="stmt"/>
+      <line num="96" count="40" type="cond" truecount="2" falsecount="0"/>
+      <line num="97" count="9" type="stmt"/>
+      <line num="102" count="31" type="stmt"/>
+      <line num="103" count="31" type="stmt"/>
+      <line num="108" count="31" type="stmt"/>
+      <line num="110" count="31" type="stmt"/>
+      <line num="115" count="61" type="stmt"/>
+      <line num="118" count="61" type="stmt"/>
+      <line num="120" count="61" type="cond" truecount="2" falsecount="0"/>
+      <line num="121" count="1" type="stmt"/>
+      <line num="122" count="60" type="cond" truecount="2" falsecount="0"/>
+      <line num="123" count="1" type="stmt"/>
+      <line num="125" count="59" type="stmt"/>
+      <line num="130" count="59" type="stmt"/>
+      <line num="132" count="59" type="stmt"/>
+    </file>
+  </project>
+</coverage>
