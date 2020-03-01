@@ -1,0 +1,26 @@
+{
+  "extends": [
+    "prettier"
+  ],
+  "plugins": [
+    "prettier",
+    "jam3"
+  ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true,
+    "jest": true
+  },
+  "rules": {
+    "prettier/prettier": [
+      "error"
+    ],
+    "no-shadow": 0
+  }
+}
