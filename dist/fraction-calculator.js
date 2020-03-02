@@ -3223,6 +3223,13 @@ FractionCalculator.fn.toFixed = function (n) {
       numerator = _this$fraction2.numerator,
       denominator = _this$fraction2.denominator;
   return (numerator / denominator).toFixed(n);
+};
+
+FractionCalculator.fn.toNumber = function (n) {
+  var _this$fraction3 = this.fraction,
+      numerator = _this$fraction3.numerator,
+      denominator = _this$fraction3.denominator;
+  return numerator / denominator;
 }; // instance methods
 
 
@@ -3271,9 +3278,9 @@ FractionCalculator.fn.div = function (b) {
 };
 
 FractionCalculator.fn.pow = function (n) {
-  var _this$fraction3 = this.fraction,
-      numerator = _this$fraction3.numerator,
-      denominator = _this$fraction3.denominator;
+  var _this$fraction4 = this.fraction,
+      numerator = _this$fraction4.numerator,
+      denominator = _this$fraction4.denominator;
   var numeratorPow = Math.pow(numerator, n);
   var denominatorPow = Math.pow(denominator, n);
   var result;
@@ -3326,9 +3333,9 @@ FractionCalculator.fn.neg = function () {
 };
 
 FractionCalculator.fn.inverse = function () {
-  var _this$fraction4 = this.fraction,
-      numerator = _this$fraction4.numerator,
-      denominator = _this$fraction4.denominator;
+  var _this$fraction5 = this.fraction,
+      numerator = _this$fraction5.numerator,
+      denominator = _this$fraction5.denominator;
   var result = {
     numerator: denominator,
     denominator: numerator
@@ -3342,38 +3349,38 @@ FractionCalculator.fn.clone = function () {
 };
 
 FractionCalculator.fn.ceil = function () {
-  var _this$fraction5 = this.fraction,
-      numerator = _this$fraction5.numerator,
-      denominator = _this$fraction5.denominator;
+  var _this$fraction6 = this.fraction,
+      numerator = _this$fraction6.numerator,
+      denominator = _this$fraction6.denominator;
   return Math.ceil(numerator / denominator);
 };
 
 FractionCalculator.fn.floor = function () {
-  var _this$fraction6 = this.fraction,
-      numerator = _this$fraction6.numerator,
-      denominator = _this$fraction6.denominator;
+  var _this$fraction7 = this.fraction,
+      numerator = _this$fraction7.numerator,
+      denominator = _this$fraction7.denominator;
   return Math.floor(numerator / denominator);
 };
 
 FractionCalculator.fn.round = function () {
-  var _this$fraction7 = this.fraction,
-      numerator = _this$fraction7.numerator,
-      denominator = _this$fraction7.denominator;
+  var _this$fraction8 = this.fraction,
+      numerator = _this$fraction8.numerator,
+      denominator = _this$fraction8.denominator;
   return Math.round(numerator / denominator);
 };
 
 FractionCalculator.fn.equals = function (b) {
-  var result = this.minus(b);
+  var result = this.minus(b).toNumber();
   return result === 0;
 };
 
 FractionCalculator.fn.greaterThan = function (b) {
-  var result = this.minus(b);
+  var result = this.minus(b).toNumber();
   return result > 0;
 };
 
 FractionCalculator.fn.lessThan = function (b) {
-  var result = this.minus(b);
+  var result = this.minus(b).toNumber();
   return result < 0;
 };
 
