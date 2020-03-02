@@ -81,6 +81,14 @@ FractionCalculator.fn.toFixed = function(n) {
   return (numerator / denominator).toFixed(n);
 };
 
+FractionCalculator.fn.toNumber = function(n) {
+  const {
+    fraction: { numerator, denominator },
+  } = this;
+
+  return numerator / denominator;
+};
+
 // instance methods
 FractionCalculator.fn.plus = function(b) {
   const fractionA = this.fraction;
@@ -239,19 +247,19 @@ FractionCalculator.fn.round = function() {
 };
 
 FractionCalculator.fn.equals = function(b) {
-  let result = this.minus(b);
+  let result = this.minus(b).toNumber();
 
   return result === 0;
 };
 
 FractionCalculator.fn.greaterThan = function(b) {
-  let result = this.minus(b);
+  let result = this.minus(b).toNumber();
 
   return result > 0;
 };
 
 FractionCalculator.fn.lessThan = function(b) {
-  let result = this.minus(b);
+  let result = this.minus(b).toNumber();
 
   return result < 0;
 };
