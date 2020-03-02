@@ -20,22 +20,18 @@ export function getLCM(a, b) {
   return (a * b) / getGCD(a, b);
 }
 
-export function getAbsoluteValue(num) {
-  return num < 0 ? -num : num;
-}
-
 export function adjustNegative(fraction) {
   const { numerator, denominator } = fraction;
 
   if (numerator < 0 && denominator < 0) {
     return {
-      numerator: getAbsoluteValue(numerator),
-      denominator: getAbsoluteValue(denominator),
+      numerator: Math.abs(numerator),
+      denominator: Math.abs(denominator),
     };
   } else if (numerator < 0 || denominator < 0) {
     return {
-      numerator: -getAbsoluteValue(numerator),
-      denominator: getAbsoluteValue(denominator),
+      numerator: -Math.abs(numerator),
+      denominator: Math.abs(denominator),
     };
   }
 
@@ -44,16 +40,21 @@ export function adjustNegative(fraction) {
 
 export function reduceFraction(fractionObj) {
   const { numerator, denominator } = fractionObj;
-  const gcd = getGCD(numerator, denominator);
 
-  let fraction = {
-    numerator: numerator / gcd,
-    denominator: denominator / gcd,
-  };
+  if (Number.isFinite(numerator) && Number.isFinite(denominator)) {
+    const gcd = getGCD(numerator, denominator);
 
-  fraction = adjustNegative(fraction);
+    let fraction = {
+      numerator: numerator / gcd,
+      denominator: denominator / gcd,
+    };
 
-  return fraction;
+    fraction = adjustNegative(fraction);
+
+    return fraction;
+  }
+
+  return fractionObj;
 }
 
 export function reduceFractionToACommonDenominator(fractionA, fractionB) {

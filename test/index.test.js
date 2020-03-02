@@ -196,60 +196,97 @@ describe('fraction times', () => {
   });
 });
 
-describe('fraction dividedBy', () => {
-  it('can support positive dividedBy positive', () => {
-    const result = fc('1/3').dividedBy(0.5);
+describe('fraction div', () => {
+  it('can support positive div positive', () => {
+    const result = fc('1/3').div(0.5);
     expect(result.toString()).toEqual('2/3');
 
-    const result2 = fc(0.5).dividedBy('1/3');
+    const result2 = fc(0.5).div('1/3');
     expect(result2.toString()).toEqual('3/2');
 
-    const result3 = fc(0).dividedBy('1/56');
+    const result3 = fc(0).div('1/56');
     expect(result3.toString()).toEqual('0');
   });
 
-  it('can support negative dividedBy positive', () => {
-    const result = fc('-1/3').dividedBy(0.5);
+  it('can support negative div positive', () => {
+    const result = fc('-1/3').div(0.5);
     expect(result.toString()).toEqual('-2/3');
 
-    const result2 = fc(-0.5).dividedBy('1/3');
+    const result2 = fc(-0.5).div('1/3');
     expect(result2.toString()).toEqual('-3/2');
 
-    const result3 = fc(-0).dividedBy('1/56');
+    const result3 = fc(-0).div('1/56');
     expect(result3.toString()).toEqual('0');
   });
 
-  it('can support negative dividedBy negative', () => {
-    const result = fc('-1/3').dividedBy(-0.5);
+  it('can support negative div negative', () => {
+    const result = fc('-1/3').div(-0.5);
     expect(result.toString()).toEqual('2/3');
 
-    const result2 = fc(-0.5).dividedBy('-1/3');
+    const result2 = fc(-0.5).div('-1/3');
     expect(result2.toString()).toEqual('3/2');
 
-    const result3 = fc(-0).dividedBy('-1/56');
+    const result3 = fc(-0).div('-1/56');
     expect(result3.toString()).toEqual('0');
   });
 });
 
 describe('fraction toFixed', () => {
   it('can support toFixed', () => {
-    const result = fc('-1/3').dividedBy(-0.5);
+    const result = fc('-1/3').div(-0.5);
     expect(result.toFixed()).toEqual('1');
 
-    const result2 = fc(-0.5).dividedBy('1/3');
+    const result2 = fc(-0.5).div('1/3');
     expect(result2.toFixed(2)).toEqual('-1.50');
   });
 });
 
 describe('fraction toString', () => {
   it('can support toString with whole part', () => {
-    const result = fc('-1/3').dividedBy(-0.1);
+    const result = fc('-1/3').div(-0.1);
     expect(result.toString(true)).toEqual('3 1/3');
 
-    const result2 = fc('1/3').dividedBy(-0.1);
+    const result2 = fc('1/3').div(-0.1);
     expect(result2.toString(true)).toEqual('-3 1/3');
 
-    const result3 = fc('1/3').dividedBy(-0.5);
+    const result3 = fc('1/3').div(-0.5);
     expect(result3.toString(true)).toEqual('-2/3');
+  });
+});
+
+describe('fraction pow', () => {
+  it('can support positive pow', () => {
+    const result = fc('2/3').pow(2);
+    expect(result.toString()).toEqual('4/9');
+
+    const result2 = fc('2/3').pow(1.2);
+    expect(result2.toString()).toEqual('1293319370881437/2103852523296128');
+
+    const result3 = fc('-999').pow(9999);
+    expect(result3.toString()).toEqual('-Infinity');
+
+    const result4 = fc('2/3').pow(1 / 2);
+    expect(result4.toString()).toEqual('6369051672525773/7800463371553962');
+  });
+
+  it('can support negative pow', () => {
+    const result = fc('2/3').pow(-2);
+    expect(result.toString()).toEqual('9/4');
+
+    const result2 = fc('2/3').pow(-1 / 2);
+    expect(result2.toString()).toEqual('7800463371553963/6369051672525772');
+
+    const result3 = fc('4').pow(-1 / 2);
+    expect(result3.toString()).toEqual('1/2');
+  });
+});
+
+describe('fraction sqrt', () => {
+  it('can support positive sqrt', () => {
+    const result = fc('4').sqrt();
+    expect(result.toString()).toEqual('2');
+
+    const result2 = fc('2').sqrt();
+    expect(result2.toString()).toEqual('6369051672525773/4503599627370496');
   });
 });
