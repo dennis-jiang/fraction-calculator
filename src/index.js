@@ -3,6 +3,7 @@ import {
   getFractionFromString,
   reduceFractionToACommonDenominator,
   reduceFraction,
+  getAbsoluteValue,
 } from './utils';
 
 function FractionCalculator(numStr) {
@@ -32,7 +33,7 @@ const _getFraction = function(numStr) {
 // static methods
 FractionCalculator.getFraction = _getFraction;
 
-FractionCalculator.fn.toString = function() {
+FractionCalculator.fn.toString = function(withWholePart = false) {
   const {
     fraction: { numerator, denominator },
   } = this;
@@ -44,6 +45,16 @@ FractionCalculator.fn.toString = function() {
   if (denominator === 1) {
     return `${numerator}`;
   }
+
+  if (withWholePart) {
+    const wholePart = parseInt(numerator / denominator);
+    const mod = getAbsoluteValue(numerator % denominator);
+
+    if (wholePart !== 0) {
+      return `${wholePart} ${mod}/${denominator}`;
+    }
+  }
+
   return `${numerator}/${denominator}`;
 };
 

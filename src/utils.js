@@ -112,23 +112,53 @@ export function getFractionFromNumber(num) {
 }
 
 export function getFractionFromString(str) {
-  const strArr = String(str)
-    .trim()
-    .split('/');
-  const length = strArr.length;
+  let string = String(str).trim();
+  let isPositive = true;
+  const firstChar = string[0];
+  if (firstChar === '-') {
+    isPositive = false;
+    string = string.slice(1);
+  } else if (firstChar === '+') {
+    string = string.slice(1);
+  }
 
-  if (length === 1) {
-    return getFractionFromNumber(strArr[0]);
-  } else if (!Number(strArr[1])) {
-    throw new Error("Denominator can't be 0 or NaN");
-  } else {
+  let wholePart = 0;
+  let strArr;
+  if (string.includes(' ')) {
+    strArr = string.split(' ');
+    wholePart = Number(strArr[0]);
+    string = strArr[1];
+  }
+
+  strArr = string.split('/');
+  let length = strArr.length;
+
+  if (wholePart) {
+    const numeratorNum = Number(strArr[0]) + wholePart * Number(strArr[1]);
+    const numerator = Number(`${isPositive ? '' : '-'}${numeratorNum}`);
     let fraction = {
-      numerator: Number(strArr[0]),
+      numerator: numerator,
       denominator: Number(strArr[1]),
     };
-
     fraction = reduceFraction(fraction);
 
     return fraction;
+  } else {
+    const numerator = Number(`${isPositive ? '' : '-'}${strArr[0]}`);
+
+    if (length === 1) {
+      return getFractionFromNumber(numerator);
+    } else if (!Number(strArr[1])) {
+      throw new Error("Denominator can't be 0 or NaN");
+    } else {
+      let fraction = {
+        numerator: numerator,
+        denominator: Number(strArr[1]),
+      };
+
+      fraction = reduceFraction(fraction);
+
+      return fraction;
+    }
   }
 }

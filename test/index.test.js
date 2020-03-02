@@ -97,16 +97,22 @@ describe('fraction plus', () => {
     const result = fc('1/3').plus(0.5);
     expect(result.toString()).toEqual('5/6');
 
-    const result2 = fc('1/10').plus(0.2);
+    const result2 = fc('+1/10').plus(0.2);
     expect(result2.toString()).toEqual('3/10');
 
     const result3 = fc(0.1).plus(0.3);
     expect(result3.toString()).toEqual('2/5');
+
+    const result4 = fc('1 43/75').plus('23/62');
+    expect(result4.toString()).toEqual('9041/4650');
   });
 
   it('can support negative plus positive', () => {
     const result = fc(-0.5).plus('1/3');
     expect(result.toString()).toEqual('-1/6');
+
+    const result2 = fc('-1 1/10').plus(0.2);
+    expect(result2.toString()).toEqual('-9/10');
   });
 
   it('can support negative plus positive equals 0', () => {
@@ -232,5 +238,18 @@ describe('fraction toFixed', () => {
 
     const result2 = fc(-0.5).dividedBy('1/3');
     expect(result2.toFixed(2)).toEqual('-1.50');
+  });
+});
+
+describe('fraction toString', () => {
+  it('can support toString with whole part', () => {
+    const result = fc('-1/3').dividedBy(-0.1);
+    expect(result.toString(true)).toEqual('3 1/3');
+
+    const result2 = fc('1/3').dividedBy(-0.1);
+    expect(result2.toString(true)).toEqual('-3 1/3');
+
+    const result3 = fc('1/3').dividedBy(-0.5);
+    expect(result3.toString(true)).toEqual('-2/3');
   });
 });
