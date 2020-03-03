@@ -4,6 +4,8 @@ import {
   reduceFractionToACommonDenominator,
   reduceFraction,
   getGCD,
+  adjustNegative,
+  getLCM,
 } from './utils';
 
 function FractionCalculator(numStr) {
@@ -30,6 +32,9 @@ const _getFraction = function(numStr) {
   throw new Error(`Unsupported parameter ${numStr}`);
 };
 
+// Global config
+FractionCalculator.DISABLE_REDUCE = false;
+
 // static methods
 FractionCalculator.getFraction = _getFraction;
 FractionCalculator.gcd = function(a, b) {
@@ -48,10 +53,15 @@ FractionCalculator.lcm = function(a, b) {
   throw new Error('Invalid Parameter');
 };
 
+// instance methods
 FractionCalculator.fn.toString = function(withWholePart = false) {
-  const {
-    fraction: { numerator, denominator },
-  } = this;
+  let fraction = this.fraction;
+
+  if (!FractionCalculator.DISABLE_REDUCE) {
+    fraction = reduceFraction(fraction);
+  }
+
+  const { numerator, denominator } = fraction;
 
   if (numerator === 0) {
     return '0';
@@ -89,7 +99,6 @@ FractionCalculator.fn.toNumber = function(n) {
   return numerator / denominator;
 };
 
-// instance methods
 FractionCalculator.fn.plus = function(b) {
   const fractionA = this.fraction;
   const fractionB = _getFraction(b);
@@ -106,7 +115,8 @@ FractionCalculator.fn.plus = function(b) {
     denominator: commonFractionA.denominator,
   };
 
-  this.fraction = reduceFraction(result);
+  this.fraction = result;
+
   return this;
 };
 
@@ -126,7 +136,10 @@ FractionCalculator.fn.times = function(b) {
     denominator: fractionA.denominator * fractionB.denominator,
   };
 
-  this.fraction = reduceFraction(result);
+  this.fraction = result;
+
+  this.fraction = adjustNegative(this.fraction);
+
   return this;
 };
 
@@ -152,11 +165,6 @@ FractionCalculator.fn.pow = function(n) {
         numerator: 1 / denominatorPow,
         denominator: 1 / numeratorPow,
       };
-    } else if (n === 0) {
-      result = {
-        numerator: 1,
-        denominator: 1,
-      };
     } else {
       result = {
         numerator: numeratorPow,
@@ -164,7 +172,9 @@ FractionCalculator.fn.pow = function(n) {
       };
     }
 
-    this.fraction = reduceFraction(result);
+    this.fraction = result;
+    this.fraction = adjustNegative(this.fraction);
+
     return this;
   } else {
     throw new Error('Pow reached Infinity/Infinity');
@@ -213,7 +223,7 @@ FractionCalculator.fn.inverse = function() {
     denominator: numerator,
   };
 
-  this.fraction = result;
+  this.fraction = adjustNegative(result);
 
   return this;
 };
@@ -247,21 +257,21 @@ FractionCalculator.fn.round = function() {
 };
 
 FractionCalculator.fn.equals = function(b) {
-  let result = this.minus(b).toNumber();
+  let result = this.minus(b);
 
-  return result === 0;
+  return result.fraction.numerator === 0;
 };
 
 FractionCalculator.fn.greaterThan = function(b) {
-  let result = this.minus(b).toNumber();
+  let result = this.minus(b);
 
-  return result > 0;
+  return result.fraction.numerator > 0;
 };
 
 FractionCalculator.fn.lessThan = function(b) {
-  let result = this.minus(b).toNumber();
+  let result = this.minus(b);
 
-  return result < 0;
+  return result.fraction.numerator < 0;
 };
 
 FractionCalculator.fn.mod = function(b) {
@@ -269,8 +279,8 @@ FractionCalculator.fn.mod = function(b) {
   const {
     fraction: { numerator, denominator },
   } = quotient;
-  const floorQuotient = Math.floor(numerator / denominator);
-  const result = this.minus(floorQuotient);
+  const floorQuotient = parseInt(numerator / denominator);
+  const result = this.minus(FractionCalculator(b).times(floorQuotient));
 
   return result;
 };

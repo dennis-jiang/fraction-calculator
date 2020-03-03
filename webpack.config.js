@@ -10,6 +10,8 @@ module.exports = {
     filename: !!PROD ? 'fraction-calculator.min.js' : 'fraction-calculator.js',
     library: 'fc',
     libraryTarget: 'umd',
+    libraryExport: 'default',
+    globalObject: 'typeof window !== "undefined" ? window : this'
   },
   optimization: {
     minimize: !!PROD,

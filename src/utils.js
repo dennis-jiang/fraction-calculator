@@ -1,6 +1,8 @@
 export function getGCD(a, b) {
   // get greatest common divisor(GCD)
   // GCD(a, b) = GCD(b, a % b)
+  a = Math.abs(a);
+  b = Math.abs(b);
   let mod = a % b;
 
   while (mod !== 0) {
@@ -48,8 +50,6 @@ export function reduceFraction(fractionObj) {
       numerator: numerator / gcd,
       denominator: denominator / gcd,
     };
-
-    fraction = adjustNegative(fraction);
 
     return fraction;
   }
@@ -106,8 +106,6 @@ export function getFractionFromNumber(num) {
       denominator: Number(`1e${decimalsCount}`),
     };
 
-    fraction = reduceFraction(fraction);
-
     return fraction;
   }
 }
@@ -141,7 +139,8 @@ export function getFractionFromString(str) {
       numerator: numerator,
       denominator: Number(strArr[1]),
     };
-    fraction = reduceFraction(fraction);
+
+    fraction = adjustNegative(fraction);
 
     return fraction;
   } else {
@@ -157,7 +156,7 @@ export function getFractionFromString(str) {
         denominator: Number(strArr[1]),
       };
 
-      fraction = reduceFraction(fraction);
+      fraction = adjustNegative(fraction);
 
       return fraction;
     }

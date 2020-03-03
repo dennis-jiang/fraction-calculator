@@ -23,8 +23,8 @@ describe('FractionCalculator instance', () => {
     const instance = fc(4.55);
 
     expect(instance.fraction).toEqual({
-      numerator: 91,
-      denominator: 20,
+      numerator: 455,
+      denominator: 100,
     });
   });
 
@@ -32,8 +32,8 @@ describe('FractionCalculator instance', () => {
     const instance = fc(-4.55);
 
     expect(instance.fraction).toEqual({
-      numerator: -91,
-      denominator: 20,
+      numerator: -455,
+      denominator: 100,
     });
   });
 
@@ -41,8 +41,8 @@ describe('FractionCalculator instance', () => {
     const instance = fc('15/35');
 
     expect(instance.fraction).toEqual({
-      numerator: 3,
-      denominator: 7,
+      numerator: 15,
+      denominator: 35,
     });
   });
 
@@ -50,8 +50,17 @@ describe('FractionCalculator instance', () => {
     const instance = fc('-15/35');
 
     expect(instance.fraction).toEqual({
-      numerator: -3,
-      denominator: 7,
+      numerator: -15,
+      denominator: 35,
+    });
+  });
+
+  it('can support negative string in denominator', () => {
+    const instance = fc('15/-35');
+
+    expect(instance.fraction).toEqual({
+      numerator: -15,
+      denominator: 35,
     });
   });
 
@@ -59,8 +68,8 @@ describe('FractionCalculator instance', () => {
     const instance = fc('-15/-35');
 
     expect(instance.fraction).toEqual({
-      numerator: 3,
-      denominator: 7,
+      numerator: 15,
+      denominator: 35,
     });
   });
 
@@ -78,8 +87,8 @@ describe('FractionCalculator instance', () => {
     const instance3 = fc(instance2);
 
     expect(instance3.fraction).toEqual({
-      numerator: 3,
-      denominator: 7,
+      numerator: 15,
+      denominator: 35,
     });
   });
 
@@ -279,6 +288,19 @@ describe('fraction pow', () => {
     const result3 = fc('4').pow(-1 / 2);
     expect(result3.toString()).toEqual('1/2');
   });
+
+  it('can support 0', () => {
+    const result = fc('2/3').pow(0);
+    expect(result.toString()).toEqual('1');
+  });
+
+  it('can handle Infinity', () => {
+    try {
+      fc('888/999').pow(999);
+    } catch (error) {
+      expect(error.message).toEqual('Pow reached Infinity/Infinity');
+    }
+  });
 });
 
 describe('fraction sqrt', () => {
@@ -288,5 +310,217 @@ describe('fraction sqrt', () => {
 
     const result2 = fc('2').sqrt();
     expect(result2.toString()).toEqual('6369051672525773/4503599627370496');
+  });
+});
+
+describe('fraction gcd', () => {
+  it('fc.gcd(3, 5) should be 1', () => {
+    expect(fc.gcd(3, 5)).toBe(1);
+  });
+
+  it('fc.gcd(20, 12) should be 4', () => {
+    expect(fc.gcd(20, 12)).toBe(4);
+  });
+
+  it('fc.gcd(20, 5) should be 5', () => {
+    expect(fc.gcd(20, 5)).toBe(5);
+  });
+
+  it('fc.gcd(20, -5) should be 5', () => {
+    expect(fc.gcd(20, -5)).toBe(5);
+  });
+
+  it('can handle NaN', () => {
+    try {
+      fc.gcd(2, NaN);
+    } catch (error) {
+      expect(error.message).toEqual('Invalid Parameter');
+    }
+  });
+});
+
+describe('fraction lcm', () => {
+  it('fc.lcm(3, 5) should be 15', () => {
+    expect(fc.lcm(3, 5)).toBe(15);
+  });
+
+  it('fc.lcm(20, 12) should be 60', () => {
+    expect(fc.lcm(20, 12)).toBe(60);
+  });
+
+  it('fc.lcm(20, 5) should be 20', () => {
+    expect(fc.lcm(20, 5)).toBe(20);
+  });
+
+  it('can handle NaN', () => {
+    try {
+      fc.lcm(2, NaN);
+    } catch (error) {
+      expect(error.message).toEqual('Invalid Parameter');
+    }
+  });
+});
+
+describe('fraction sqrt', () => {
+  it('can handle sqrt 4/9', () => {
+    const result = fc('4/9').sqrt();
+    expect(result.toString()).toEqual('2/3');
+  });
+
+  it('can handle sqrt 0', () => {
+    const result = fc(0).sqrt();
+    expect(result.toNumber()).toEqual(0);
+  });
+
+  it('can handle sqrt -5.2', () => {
+    try {
+      fc(-5.2).sqrt();
+    } catch (error) {
+      expect(error.message).toEqual('Sqrt number cannot less than 0');
+    }
+  });
+});
+
+describe('fraction abs', () => {
+  it('can handle 5.9', () => {
+    const result = fc(5.9).abs();
+    expect(result.toString(true)).toEqual('5 9/10');
+  });
+
+  it('can handle -25/36', () => {
+    const result = fc('-25/36').abs();
+    expect(result.toString(true)).toEqual('25/36');
+  });
+});
+
+describe('fraction neg', () => {
+  it('can handle 5.9', () => {
+    const result = fc(5.9).neg();
+    expect(result.toString(true)).toEqual('-5 9/10');
+  });
+
+  it('can handle -25/36', () => {
+    const result = fc('-25/36').neg();
+    expect(result.toString()).toEqual('25/36');
+  });
+});
+
+describe('fraction inverse', () => {
+  it('can handle 5.9', () => {
+    const result = fc(5.9).inverse();
+    expect(result.toString(true)).toEqual('10/59');
+  });
+
+  it('can handle -25/36', () => {
+    const result = fc('-25/36').inverse();
+    expect(result.toString(true)).toEqual('-1 11/25');
+  });
+});
+
+describe('fraction clone', () => {
+  it('can handle 5.9', () => {
+    const fc1 = fc(1.5);
+    const fc2 = fc1.clone();
+
+    fc1.plus('-1/2');
+
+    expect(fc1.toNumber()).toEqual(1);
+    expect(fc2.toNumber()).toEqual(1.5);
+  });
+});
+
+describe('fraction ceil', () => {
+  it('can handle ceil', () => {
+    const res1 = fc(1.5).ceil();
+    expect(res1).toEqual(2);
+
+    const res2 = fc(-1.5).ceil();
+    expect(res2).toEqual(-1);
+  });
+});
+
+describe('fraction floor', () => {
+  it('can handle floor', () => {
+    const res1 = fc('3/2').floor();
+    expect(res1).toEqual(1);
+
+    const res2 = fc('-3/2').floor();
+    expect(res2).toEqual(-2);
+  });
+});
+
+describe('fraction round', () => {
+  it('can handle round', () => {
+    const res1 = fc('3/2').round();
+    expect(res1).toEqual(2);
+
+    const res2 = fc('-3/2').round();
+    expect(res2).toEqual(-1);
+  });
+});
+
+describe('fraction equals', () => {
+  it('can handle equals', () => {
+    const res1 = fc('3/2').equals('6/4');
+    expect(res1).toEqual(true);
+
+    const res2 = fc('-3/2').equals('-6/4');
+    expect(res2).toEqual(true);
+
+    const res3 = fc('3/2').equals('9/4');
+    expect(res3).toEqual(false);
+  });
+});
+
+describe('fraction greaterThan', () => {
+  it('can handle greaterThan', () => {
+    const res1 = fc('3/2').greaterThan('6/4');
+    expect(res1).toEqual(false);
+
+    const res2 = fc('-3/2').greaterThan('-4/2');
+    expect(res2).toEqual(true);
+
+    const res3 = fc('3/2').greaterThan('15/4');
+    expect(res3).toEqual(false);
+  });
+});
+
+describe('fraction lessThan', () => {
+  it('can handle lessThan', () => {
+    const res1 = fc('3/2').lessThan('6/4');
+    expect(res1).toEqual(false);
+
+    const res2 = fc('-3/2').lessThan('-4/2');
+    expect(res2).toEqual(false);
+
+    const res3 = fc('3/2').lessThan('15/4');
+    expect(res3).toEqual(true);
+  });
+});
+
+describe('fraction mod', () => {
+  it('can handle mod', () => {
+    const res1 = fc('3/2').mod('1/2');
+    expect(res1.toString()).toEqual('0');
+
+    const res2 = fc('-29/3').mod(5);
+    expect(res2.toString()).toEqual('-14/3');
+
+    const res3 = fc('158/5').mod('3/5');
+    expect(res3.toString()).toEqual('2/5');
+  });
+});
+
+describe('fraction DISABLE_REDUCE', () => {
+  it('can disable reduce', () => {
+    fc.DISABLE_REDUCE = true;
+
+    const res1 = fc('15/35').toString();
+    expect(res1).toEqual('15/35');
+
+    fc.DISABLE_REDUCE = false;
+
+    const res2 = fc('15/35').toString();
+    expect(res2).toEqual('3/7');
   });
 });

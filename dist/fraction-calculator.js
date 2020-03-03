@@ -7,7 +7,7 @@
 		exports["fc"] = factory();
 	else
 		root["fc"] = factory();
-})(window, function() {
+})(typeof window !== "undefined" ? window : this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -3389,7 +3389,7 @@ FractionCalculator.fn.mod = function (b) {
   var _quotient$fraction = quotient.fraction,
       numerator = _quotient$fraction.numerator,
       denominator = _quotient$fraction.denominator;
-  var floorQuotient = Math.floor(numerator / denominator);
+  var floorQuotient = parseInt(numerator / denominator);
   var result = this.minus(floorQuotient);
   return result;
 };
@@ -3397,5 +3397,5 @@ FractionCalculator.fn.mod = function (b) {
 /* harmony default export */ var src = __webpack_exports__["default"] = (FractionCalculator);
 
 /***/ })
-/******/ ]);
+/******/ ])["default"];
 });

@@ -4,7 +4,6 @@
   ],
   "plugins": [
     "prettier",
-    "jam3"
   ],
   "parser": "babel-eslint",
   "parserOptions": {

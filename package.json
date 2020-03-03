@@ -28,6 +28,11 @@
     "jest": "24.9.0",
     "webpack": "^4.41.6",
     "webpack-cli": "^3.3.11",
-    "core-js": "^3.2.1"
+    "core-js": "^3.2.1",
+    "eslint": "5.16.0",
+    "eslint-config-prettier": "6.1.0",
+    "eslint-plugin-prettier": "3.1.0",
+    "prettier": "1.18.2",
+    "babel-eslint": "9.0.0"
   }
 }

@@ -26,11 +26,11 @@ describe('getLCM', () => {
     expect(getLCM(3, 5)).toBe(15);
   });
 
-  it('getGCD(20, 12) should be 60', () => {
+  it('getLCM(20, 12) should be 60', () => {
     expect(getLCM(20, 12)).toBe(60);
   });
 
-  it('getGCD(20, 5) should be 20', () => {
+  it('getLCM(20, 5) should be 20', () => {
     expect(getLCM(20, 5)).toBe(20);
   });
 });
