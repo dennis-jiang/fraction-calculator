@@ -1,4 +1,4 @@
-import fc from '../dist/fraction-calculator';
+import fc from '../dist/fraction-calculator.min.js';
 
 it('can support import', () => {
   let res = fc('1/3')
@@ -10,5 +10,5 @@ it('can support import', () => {
     .pow(1.5)
     .sqrt();
 
-  expect(res.toString()).toEqual('8573487214015829/7216236010448754');
+  expect(res.toString()).toEqual('6909608678291248/5815762678327879');
 });
