@@ -287,6 +287,9 @@ FractionCalculator.fn.toRecurringDecimal = function() {
     numerator = -numerator;
   }
 
+  const originInt = parseInt(numerator / denominator);
+  numerator = numerator - originInt * denominator;
+
   if (!_isRecurring(denominator)) {
     return `${numerator / denominator}`;
   }
@@ -319,6 +322,8 @@ FractionCalculator.fn.toRecurringDecimal = function() {
   if (!isPositive) {
     result = `-${result}`;
   }
+
+  result = result.replace('0.', `${originInt}.`);
 
   return result;
 };

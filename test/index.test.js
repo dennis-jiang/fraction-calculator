@@ -609,13 +609,13 @@ describe('fraction toRecurringDecimal', () => {
     expect(res6).toEqual('0.269(73684210526313250000)');
 
     const res7 = fc('355/113').toRecurringDecimal();
-    expect(res7).toEqual('3.(14159292035398238000)');
+    expect(res7).toEqual('3.(14159292035398230000)');
 
     const res8 = fc('19 123/456').toRecurringDecimal();
-    expect(res8).toEqual('19.269(73684210526179030000)');
+    expect(res8).toEqual('19.269(73684210526313250000)');
 
     const res9 = fc('1999999999 123/456').toRecurringDecimal();
-    expect(res9).toEqual('1999999999.269(73678889903781315000)');
+    expect(res9).toEqual('1999999999.269(73684210526313250000)');
   });
 
   it('can handle negative', () => {
@@ -638,12 +638,12 @@ describe('fraction toRecurringDecimal', () => {
     expect(res6).toEqual('-0.269(73684210526313250000)');
 
     const res7 = fc('-355/113').toRecurringDecimal();
-    expect(res7).toEqual('-3.(14159292035398238000)');
+    expect(res7).toEqual('-3.(14159292035398230000)');
 
     const res8 = fc('-19 123/456').toRecurringDecimal();
-    expect(res8).toEqual('-19.269(73684210526179030000)');
+    expect(res8).toEqual('-19.269(73684210526313250000)');
 
     const res9 = fc('-1999999999 123/456').toRecurringDecimal();
-    expect(res9).toEqual('-1999999999.269(73678889903781315000)');
+    expect(res9).toEqual('-1999999999.269(73684210526313250000)');
   });
 });
