@@ -57,24 +57,3 @@ describe('adjustNegative', () => {
     });
   });
 });
-
-describe('getFractionFromNumber', () => {
-  it('getFractionFromNumber can handle NaN', () => {
-    try {
-      getFractionFromNumber(NaN);
-    } catch (error) {
-      expect(error.message).toEqual('Unsupported number NaN or Infinity');
-    }
-  });
-});
-
-describe('getFractionFromString', () => {
-  it('getFractionFromString can handle one number', () => {
-    const result = getFractionFromString('2');
-
-    expect(result).toEqual({
-      numerator: 2,
-      denominator: 1,
-    });
-  });
-});

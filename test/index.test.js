@@ -99,6 +99,23 @@ describe('FractionCalculator instance', () => {
       expect(error.message).toEqual('Unsupported parameter [object Object]');
     }
   });
+
+  it('can handle NaN', () => {
+    try {
+      fc(NaN);
+    } catch (error) {
+      expect(error.message).toEqual('Unsupported number NaN or Infinity');
+    }
+  });
+
+  it('can handle one number', () => {
+    const result = fc('2');
+
+    expect(result.fraction).toEqual({
+      numerator: 2,
+      denominator: 1,
+    });
+  });
 });
 
 describe('fraction plus', () => {
