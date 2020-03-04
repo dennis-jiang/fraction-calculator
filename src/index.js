@@ -152,6 +152,62 @@ const _getFraction = function(numStr) {
   throw new Error(`Unsupported parameter ${numStr}`);
 };
 
+function _isRecurring(denominator) {
+  while (denominator % 2 === 0) {
+    denominator = denominator / 2;
+  }
+
+  while (denominator % 5 === 0) {
+    denominator = denominator / 5;
+  }
+
+  return denominator !== 1;
+}
+
+function _contains2or5(denominator) {
+  return denominator % 2 === 0 || denominator % 5 === 0;
+}
+
+function _find9Num(denominator) {
+  let str = '9';
+  let count = 1;
+  while (Number(str) % denominator !== 0) {
+    str = `${str}9`;
+    count++;
+
+    if (count >= 20) {
+      return Number(str);
+    }
+  }
+
+  return Number(str);
+}
+
+function _moveDotLeft(str, n) {
+  const index = str.indexOf('.');
+  if (n === 0) {
+    return str;
+  }
+
+  let more0 = 0;
+  if (n >= index) {
+    more0 = n - index + 1;
+  }
+
+  for (let i = 0; i < more0; i++) {
+    str = '0' + str;
+  }
+
+  let newIndex = str.indexOf('.');
+
+  const realIndex = newIndex - n;
+
+  const strArr = str.replace('.', '').split('');
+  strArr.splice(realIndex, 0, '.');
+
+  return strArr.join('');
+}
+
 // Global config
 FractionCalculator.DISABLE_REDUCE = false;
 
@@ -211,12 +267,60 @@ FractionCalculator.fn.toFixed = function(n) {
   return (numerator / denominator).toFixed(n);
 };
 
-FractionCalculator.fn.toNumber = function(n) {
+FractionCalculator.fn.toNumber = function() {
   const {
     fraction: { numerator, denominator },
   } = this;
 
   return numerator / denominator;
+};
+
+FractionCalculator.fn.toRecurringDecimal = function() {
+  let { fraction } = this;
+
+  fraction = reduceFraction(fraction);
+
+  let { numerator, denominator } = fraction;
+  let isPositive = true;
+  if (numerator < 0) {
+    isPositive = false;
+    numerator = -numerator;
+  }
+
+  if (!_isRecurring(denominator)) {
+    return `${numerator / denominator}`;
+  }
+
+  let zoom = 1;
+
+  let newFraction = {
+    numerator,
+    denominator,
+  };
+  while (_contains2or5(newFraction.denominator)) {
+    zoom = zoom * 10;
+    newFraction.numerator = numerator * zoom;
+    newFraction.denominator = denominator;
+    newFraction = reduceFraction(newFraction);
+  }
+
+  const num9 = _find9Num(newFraction.denominator);
+  const quotient = parseInt(num9 / newFraction.denominator);
+  newFraction = {
+    numerator: newFraction.numerator * quotient,
+    denominator: num9,
+  };
+  const intPart = parseInt(newFraction.numerator / newFraction.denominator);
+  const decimalPart = newFraction.numerator - intPart * newFraction.denominator;
+  let result = `${intPart}.(${decimalPart})`;
+
+  result = _moveDotLeft(result, Math.log10(zoom));
+
+  if (!isPositive) {
+    result = `-${result}`;
+  }
+
+  return result;
 };
 
 FractionCalculator.fn.plus = function(b) {

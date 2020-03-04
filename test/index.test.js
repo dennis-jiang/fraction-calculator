@@ -587,3 +587,63 @@ describe('fraction DISABLE_REDUCE', () => {
     expect(res2).toEqual('3/7');
   });
 });
+
+describe('fraction toRecurringDecimal', () => {
+  it('can handle positive', () => {
+    const res = fc('2/9').toRecurringDecimal();
+    expect(res).toEqual('0.(2)');
+
+    const res2 = fc('5/7').toRecurringDecimal();
+    expect(res2).toEqual('0.(714285)');
+
+    const res3 = fc('7/15').toRecurringDecimal();
+    expect(res3).toEqual('0.4(6)');
+
+    const res4 = fc('3/28').toRecurringDecimal();
+    expect(res4).toEqual('0.10(714285)');
+
+    const res5 = fc('3867/28').toRecurringDecimal();
+    expect(res5).toEqual('138.10(714285)');
+
+    const res6 = fc('123/456').toRecurringDecimal();
+    expect(res6).toEqual('0.269(73684210526313250000)');
+
+    const res7 = fc('355/113').toRecurringDecimal();
+    expect(res7).toEqual('3.(14159292035398238000)');
+
+    const res8 = fc('19 123/456').toRecurringDecimal();
+    expect(res8).toEqual('19.269(73684210526179030000)');
+
+    const res9 = fc('1999999999 123/456').toRecurringDecimal();
+    expect(res9).toEqual('1999999999.269(73678889903781315000)');
+  });
+
+  it('can handle negative', () => {
+    const res = fc('-2/9').toRecurringDecimal();
+    expect(res).toEqual('-0.(2)');
+
+    const res2 = fc('-5/7').toRecurringDecimal();
+    expect(res2).toEqual('-0.(714285)');
+
+    const res3 = fc('-7/15').toRecurringDecimal();
+    expect(res3).toEqual('-0.4(6)');
+
+    const res4 = fc('-3/28').toRecurringDecimal();
+    expect(res4).toEqual('-0.10(714285)');
+
+    const res5 = fc('-3867/28').toRecurringDecimal();
+    expect(res5).toEqual('-138.10(714285)');
+
+    const res6 = fc('-123/456').toRecurringDecimal();
+    expect(res6).toEqual('-0.269(73684210526313250000)');
+
+    const res7 = fc('-355/113').toRecurringDecimal();
+    expect(res7).toEqual('-3.(14159292035398238000)');
+
+    const res8 = fc('-19 123/456').toRecurringDecimal();
+    expect(res8).toEqual('-19.269(73684210526179030000)');
+
+    const res9 = fc('-1999999999 123/456').toRecurringDecimal();
+    expect(res9).toEqual('-1999999999.269(73678889903781315000)');
+  });
+});
