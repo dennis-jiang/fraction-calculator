@@ -116,6 +116,52 @@ describe('FractionCalculator instance', () => {
       denominator: 1,
     });
   });
+
+  it('can handle cycle number', () => {
+    const result = fc("0.22'8'");
+    expect(result.toString()).toEqual('103/450');
+
+    const result2 = fc('0.22(8)');
+    expect(result2.toString()).toEqual('103/450');
+
+    const result3 = fc('0.(4568)');
+    expect(result3.toString()).toEqual('4568/9999');
+
+    const result4 = fc("0.'4568'");
+    expect(result4.toString()).toEqual('4568/9999');
+
+    const result5 = fc("158.'4568'");
+    expect(result5.toString()).toEqual('1584410/9999');
+
+    const result6 = fc('298.22(876)');
+    expect(result6.toString()).toEqual('4965509/16650');
+
+    const result7 = fc('.22(8)');
+    expect(result7.toString()).toEqual('103/450');
+  });
+
+  it('can handle negative cycle number', () => {
+    const result = fc("-0.22'8'");
+    expect(result.toString()).toEqual('-103/450');
+
+    const result2 = fc('-0.22(8)');
+    expect(result2.toString()).toEqual('-103/450');
+
+    const result3 = fc('-0.(4568)');
+    expect(result3.toString()).toEqual('-4568/9999');
+
+    const result4 = fc("-0.'4568'");
+    expect(result4.toString()).toEqual('-4568/9999');
+
+    const result5 = fc("-158.'4568'");
+    expect(result5.toString()).toEqual('-1584410/9999');
+
+    const result6 = fc('-298.22(876)');
+    expect(result6.toString()).toEqual('-4965509/16650');
+
+    const result7 = fc('-.22(8)');
+    expect(result7.toString()).toEqual('-103/450');
+  });
 });
 
 describe('fraction plus', () => {

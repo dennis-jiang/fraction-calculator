@@ -43,6 +43,41 @@ function _getFractionFromNumber(num) {
   }
 }
 
+function _getFractionFromCycleNumber(str, reg, isPositive) {
+  const parts = str.match(reg);
+  let intPart = parts[1] || '0';
+  const nonCyclePart = parts[2];
+  const cyclePart = parts[3];
+  const cycleLength = cyclePart.length;
+  const decimalsPart = `${nonCyclePart}${cyclePart}`;
+  const decimalsLength = decimalsPart.length;
+
+  const firstDemon = Number(`1e${decimalsLength}`);
+  let firstFraction = `${decimalsPart}/${firstDemon}`;
+
+  let secondDemon = '';
+  for (let i = 0; i < cycleLength; i++) {
+    secondDemon = secondDemon + '9';
+  }
+  secondDemon = Number(secondDemon) * Number(`1e${decimalsLength}`);
+  const secondFraction = `${cyclePart}/${secondDemon}`;
+
+  const final = FractionCalculator(firstFraction)
+    .plus(secondFraction)
+    .plus(Number(intPart));
+
+  const {
+    fraction: { numerator, denominator },
+  } = final;
+
+  const fraction = {
+    numerator: isPositive ? numerator : -numerator,
+    denominator,
+  };
+
+  return fraction;
+}
+
 function _getFractionFromString(str) {
   let string = String(str).trim();
   let isPositive = true;
@@ -52,6 +87,15 @@ function _getFractionFromString(str) {
     string = string.slice(1);
   } else if (firstChar === '+') {
     string = string.slice(1);
+  }
+
+  // support cycle number, "12.2'345'", "12.2(345)"
+  const reg1 = /^(\d*).(\d*)'(\d+)'$/;
+  const reg2 = /^(\d*).(\d*)\((\d+)\)$/;
+  if (reg1.test(string)) {
+    return _getFractionFromCycleNumber(string, reg1, isPositive);
+  } else if (reg2.test(string)) {
+    return _getFractionFromCycleNumber(string, reg2, isPositive);
   }
 
   let wholePart = 0;
