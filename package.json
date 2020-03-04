@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest",
     "test:cov": "jest --coverage",
+    "build": "yarn build:dev && yarn build:prod",
     "build:prod": "PROD_ENV=1 webpack --config webpack.config.js",
     "build:dev": "webpack --config webpack.config.js",
     "open:cov": "open coverage/lcov-report/index.html"

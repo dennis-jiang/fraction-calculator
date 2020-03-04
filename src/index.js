@@ -208,6 +208,12 @@ function _moveDotLeft(str, n) {
   return strArr.join('');
 }
 
+function _getNum0(num) {
+  const reg = /^\d.(0*)\d+$/;
+  const zeroes = `${num}`.match(reg)[1];
+  return zeroes.length;
+}
+
 // Global config
 FractionCalculator.DISABLE_REDUCE = false;
 
@@ -291,7 +297,7 @@ FractionCalculator.fn.toRecurringDecimal = function() {
   numerator = numerator - originInt * denominator;
 
   if (!_isRecurring(denominator)) {
-    return `${numerator / denominator}`;
+    return `${isPositive ? '' : '-'}${numerator / denominator}`;
   }
 
   let zoom = 1;
@@ -314,7 +320,11 @@ FractionCalculator.fn.toRecurringDecimal = function() {
     denominator: num9,
   };
   const intPart = parseInt(newFraction.numerator / newFraction.denominator);
-  const decimalPart = newFraction.numerator - intPart * newFraction.denominator;
+  let decimalPart = newFraction.numerator - intPart * newFraction.denominator;
+  const zeroLen = _getNum0(decimalPart / newFraction.denominator);
+  for (let i = 0; i < zeroLen; i++) {
+    decimalPart = `0${decimalPart}`;
+  }
   let result = `${intPart}.(${decimalPart})`;
 
   result = _moveDotLeft(result, Math.log10(zoom));

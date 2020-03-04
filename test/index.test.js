@@ -616,6 +616,21 @@ describe('fraction toRecurringDecimal', () => {
 
     const res9 = fc('1999999999 123/456').toRecurringDecimal();
     expect(res9).toEqual('1999999999.269(73684210526313250000)');
+
+    const res10 = fc('25/80').toRecurringDecimal();
+    expect(res10).toEqual('0.3125');
+
+    const res11 = fc('2/99').toRecurringDecimal();
+    expect(res11).toEqual('0.(02)');
+
+    const res12 = fc('2/99999').toRecurringDecimal();
+    expect(res12).toEqual('0.(00002)');
+
+    const res13 = fc('1902346/124875').toRecurringDecimal();
+    expect(res13).toEqual('15.234(002)');
+
+    const res14 = fc('19 123/45600').toRecurringDecimal();
+    expect(res14).toEqual('19.00269(73684210526313250000)');
   });
 
   it('can handle negative', () => {
@@ -645,5 +660,20 @@ describe('fraction toRecurringDecimal', () => {
 
     const res9 = fc('-1999999999 123/456').toRecurringDecimal();
     expect(res9).toEqual('-1999999999.269(73684210526313250000)');
+
+    const res10 = fc('-25/80').toRecurringDecimal();
+    expect(res10).toEqual('-0.3125');
+
+    const res11 = fc('-2/99').toRecurringDecimal();
+    expect(res11).toEqual('-0.(02)');
+
+    const res12 = fc('-2/99999').toRecurringDecimal();
+    expect(res12).toEqual('-0.(00002)');
+
+    const res13 = fc('-1902346/124875').toRecurringDecimal();
+    expect(res13).toEqual('-15.234(002)');
+
+    const res14 = fc('-19 123/45600').toRecurringDecimal();
+    expect(res14).toEqual('-19.00269(73684210526313250000)');
   });
 });

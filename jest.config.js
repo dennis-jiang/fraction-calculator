@@ -5,10 +5,10 @@ module.exports = {
   coveragePathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/dist/'],
   coverageThreshold: {
     global: {
-      branches: 99,
-      functions: 98,
-      lines: 98,
-      statements: 99,
+      branches: 95,
+      functions: 95,
+      lines: 95,
+      statements: 95,
     },
   },
 };

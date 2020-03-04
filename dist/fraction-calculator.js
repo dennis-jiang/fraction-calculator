@@ -3649,6 +3649,12 @@ function _moveDotLeft(str, n) {
   var strArr = str.replace('.', '').split('');
   strArr.splice(realIndex, 0, '.');
   return strArr.join('');
+}
+
+function _getNum0(num) {
+  var reg = /^\d.(0*)\d+$/;
+  var zeroes = "".concat(num).match(reg)[1];
+  return zeroes.length;
 } // Global config
 
 
@@ -3736,7 +3742,7 @@ FractionCalculator.fn.toRecurringDecimal = function () {
   numerator = numerator - originInt * denominator;
 
   if (!_isRecurring(denominator)) {
-    return "".concat(numerator / denominator);
+    return "".concat(isPositive ? '' : '-').concat(numerator / denominator);
   }
 
   var zoom = 1;
@@ -3761,6 +3767,13 @@ FractionCalculator.fn.toRecurringDecimal = function () {
   };
   var intPart = parseInt(newFraction.numerator / newFraction.denominator);
   var decimalPart = newFraction.numerator - intPart * newFraction.denominator;
+
+  var zeroLen = _getNum0(decimalPart / newFraction.denominator);
+
+  for (var i = 0; i < zeroLen; i++) {
+    decimalPart = "0".concat(decimalPart);
+  }
+
   var result = "".concat(intPart, ".(").concat(decimalPart, ")");
   result = _moveDotLeft(result, Math.log10(zoom));
 
