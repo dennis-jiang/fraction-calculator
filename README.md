@@ -3,7 +3,7 @@ This is a library to calculate fraction. This library :
 
 1. can calculate(plus, minus, times, div, mod...) a fraction
 2. can power or sqrt a fraction.
-3. can covert a recurring decimal to a fraction or covert it back
+3. can convert a recurring decimal to a fraction or convert it back
 4. supports IE
 5. has 100% UT coverage
 
