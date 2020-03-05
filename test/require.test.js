@@ -1,6 +1,6 @@
-import fc from '../dist/fraction-calculator.js';
+const fc = require('../dist/fraction-calculator.js');
 
-it('can support import', () => {
+it('can support require', () => {
   let res = fc('1/3')
     .plus(0.5)
     .times('5/6')

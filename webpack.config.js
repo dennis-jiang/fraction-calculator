@@ -1,28 +1,46 @@
-var webpack = require('webpack');
 var path = require('path');
 
-var PROD = JSON.parse(process.env.PROD_ENV || '0');
+module.exports = function() {
+  var isProd = process.env.NODE_ENV === 'production';
+  var isPolyfill = !!process.env.POLYFILL;
 
-module.exports = {
-  entry: './src/index.js',
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: !!PROD ? 'fraction-calculator.min.js' : 'fraction-calculator.js',
-    library: 'fc',
-    libraryTarget: 'umd',
-    libraryExport: 'default',
-    globalObject: 'typeof window !== "undefined" ? window : this'
-  },
-  optimization: {
-    minimize: !!PROD,
-  },
-  module: {
-    rules: [
+  var filename = 'fraction-calculator.js';
+
+  var rules = [];
+
+  if (isPolyfill) {
+    filename = 'fraction-calculator.polyfill.min.js';
+  } else if (isProd) {
+    filename = 'fraction-calculator.min.js';
+  }
+
+  if (isPolyfill) {
+    rules = [
       {
         test: /\.js$/,
         use: 'babel-loader',
         exclude: '/node_modules/',
       },
-    ],
-  },
+    ];
+  }
+
+  const config = {
+    entry: './src/index.js',
+    output: {
+      path: path.resolve(__dirname, 'dist'),
+      filename,
+      library: 'fc',
+      libraryTarget: 'umd',
+      libraryExport: 'default',
+      globalObject: 'typeof window !== "undefined" ? window : this',
+    },
+    optimization: {
+      minimize: isProd,
+    },
+    module: {
+      rules,
+    },
+  };
+
+  return config;
 };

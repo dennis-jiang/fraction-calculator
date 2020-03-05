@@ -2,13 +2,14 @@
   "name": "fraction-calculator",
   "version": "0.0.1",
   "description": "A simple fraction calculator.",
-  "main": "index.js",
+  "main": "./dist/fraction-calculator.js",
   "scripts": {
     "test": "jest",
     "test:cov": "jest --coverage",
-    "build": "yarn build:dev && yarn build:prod",
-    "build:prod": "PROD_ENV=1 webpack --config webpack.config.js",
-    "build:dev": "webpack --config webpack.config.js",
+    "build": "yarn build:dev && yarn build:prod && yarn build:polyfill",
+    "build:prod": "NODE_ENV=production webpack --config webpack.config.js",
+    "build:dev": "NODE_ENV=development webpack --config webpack.config.js",
+    "build:polyfill": "NODE_ENV=production POLYFILL=1 webpack --config webpack.config.js",
     "open:cov": "open coverage/lcov-report/index.html"
   },
   "repository": {

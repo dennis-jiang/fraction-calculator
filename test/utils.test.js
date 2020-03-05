@@ -1,11 +1,4 @@
-import {
-  getGCD,
-  getLCM,
-  getDecimalsCount,
-  adjustNegative,
-  getFractionFromNumber,
-  getFractionFromString,
-} from '../src/utils';
+import { getGCD, getLCM, getDecimalsCount, adjustNegative } from '../src/utils';
 
 describe('getGCD', () => {
   it('getGCD(3, 5) should be 1', () => {
