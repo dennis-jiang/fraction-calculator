@@ -8,14 +8,14 @@ import {
   getDecimalsFromFraction,
 } from './utils';
 
-function FractionCalculator(numStr) {
-  return new FractionCalculator.fn.init(numStr);
+function FractionCalculator(numStr, denominator) {
+  return new FractionCalculator.fn.init(numStr, denominator);
 }
 
 FractionCalculator.fn = FractionCalculator.prototype = {};
 
-FractionCalculator.fn.init = function(numStr) {
-  this.fraction = FractionCalculator.getFraction(numStr);
+FractionCalculator.fn.init = function(numStr, denominator) {
+  this.fraction = FractionCalculator.getFraction(numStr, denominator);
 };
 FractionCalculator.fn.init.prototype = FractionCalculator.fn;
 
@@ -141,8 +141,21 @@ function _getFractionFromString(str) {
   }
 }
 
-const _getFraction = function(numStr) {
-  if (typeof numStr === 'number') {
+const _getFraction = function(numStr, denominator) {
+  if (
+    typeof numStr === 'number' &&
+    typeof denominator === 'number' &&
+    denominator !== 0
+  ) {
+    let fraction = {
+      numerator: numStr,
+      denominator: denominator,
+    };
+
+    fraction = adjustNegative(fraction);
+
+    return fraction;
+  } else if (typeof numStr === 'number') {
     return _getFractionFromNumber(numStr);
   } else if (typeof numStr === 'string') {
     return _getFractionFromString(numStr);

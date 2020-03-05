@@ -162,6 +162,23 @@ describe('FractionCalculator instance', () => {
     const result7 = fc('-.22(8)');
     expect(result7.toString()).toEqual('-103/450');
   });
+
+  it('can handle two numbers', () => {
+    const result = fc(12, 25);
+    expect(result.toString()).toEqual('12/25');
+
+    const result2 = fc(-12, 25);
+    expect(result2.toString()).toEqual('-12/25');
+
+    const result3 = fc(12, -25);
+    expect(result3.toString()).toEqual('-12/25');
+
+    const result4 = fc(-12, -25);
+    expect(result4.toString()).toEqual('12/25');
+
+    const result5 = fc(-12, 0);
+    expect(result5.toString()).toEqual('-12');
+  });
 });
 
 describe('fraction plus', () => {

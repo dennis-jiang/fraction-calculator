@@ -3302,14 +3302,14 @@ function getDecimalsFromFraction(numerator, denominator) {
 
 
 
-function FractionCalculator(numStr) {
-  return new FractionCalculator.fn.init(numStr);
+function FractionCalculator(numStr, denominator) {
+  return new FractionCalculator.fn.init(numStr, denominator);
 }
 
 FractionCalculator.fn = FractionCalculator.prototype = {};
 
-FractionCalculator.fn.init = function (numStr) {
-  this.fraction = FractionCalculator.getFraction(numStr);
+FractionCalculator.fn.init = function (numStr, denominator) {
+  this.fraction = FractionCalculator.getFraction(numStr, denominator);
 };
 
 FractionCalculator.fn.init.prototype = FractionCalculator.fn; // internal methods
@@ -3428,8 +3428,15 @@ function _getFractionFromString(str) {
   }
 }
 
-var _getFraction = function _getFraction(numStr) {
-  if (typeof numStr === 'number') {
+var src_getFraction = function _getFraction(numStr, denominator) {
+  if (typeof numStr === 'number' && typeof denominator === 'number' && denominator !== 0) {
+    var fraction = {
+      numerator: numStr,
+      denominator: denominator
+    };
+    fraction = adjustNegative(fraction);
+    return fraction;
+  } else if (typeof numStr === 'number') {
     return _getFractionFromNumber(numStr);
   } else if (typeof numStr === 'string') {
     return _getFractionFromString(numStr);
@@ -3443,7 +3450,7 @@ var _getFraction = function _getFraction(numStr) {
 
 FractionCalculator.DISABLE_REDUCE = false; // static methods
 
-FractionCalculator.getFraction = _getFraction;
+FractionCalculator.getFraction = src_getFraction;
 
 FractionCalculator.gcd = function (a, b) {
   if (Number.isFinite(a) && Number.isFinite(b)) {
@@ -3536,7 +3543,7 @@ FractionCalculator.fn.toRecurringDecimal = function () {
 FractionCalculator.fn.plus = function (b) {
   var fractionA = this.fraction;
 
-  var fractionB = _getFraction(b);
+  var fractionB = src_getFraction(b);
 
   var commonFraction = reduceFractionToACommonDenominator(fractionA, fractionB);
   var commonFractionA = commonFraction.fractionA;
@@ -3550,7 +3557,7 @@ FractionCalculator.fn.plus = function (b) {
 };
 
 FractionCalculator.fn.minus = function (b) {
-  var fractionB = _getFraction(b);
+  var fractionB = src_getFraction(b);
 
   fractionB.numerator = -fractionB.numerator;
   return this.plus("".concat(fractionB.numerator, "/").concat(fractionB.denominator));
@@ -3559,7 +3566,7 @@ FractionCalculator.fn.minus = function (b) {
 FractionCalculator.fn.times = function (b) {
   var fractionA = this.fraction;
 
-  var fractionB = _getFraction(b);
+  var fractionB = src_getFraction(b);
 
   var result = {
     numerator: fractionA.numerator * fractionB.numerator,
@@ -3571,7 +3578,7 @@ FractionCalculator.fn.times = function (b) {
 };
 
 FractionCalculator.fn.div = function (b) {
-  var fractionB = _getFraction(b);
+  var fractionB = src_getFraction(b);
 
   var numerator = fractionB.numerator,
       denominator = fractionB.denominator;
