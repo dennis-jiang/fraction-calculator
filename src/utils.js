@@ -43,18 +43,14 @@ export function adjustNegative(fraction) {
 export function reduceFraction(fractionObj) {
   const { numerator, denominator } = fractionObj;
 
-  if (Number.isFinite(numerator) && Number.isFinite(denominator)) {
-    const gcd = getGCD(numerator, denominator);
+  const gcd = getGCD(numerator, denominator);
 
-    let fraction = {
-      numerator: numerator / gcd,
-      denominator: denominator / gcd,
-    };
+  let fraction = {
+    numerator: numerator / gcd,
+    denominator: denominator / gcd,
+  };
 
-    return fraction;
-  }
-
-  return fractionObj;
+  return fraction;
 }
 
 export function reduceFractionToACommonDenominator(fractionA, fractionB) {

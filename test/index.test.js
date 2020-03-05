@@ -351,11 +351,11 @@ describe('fraction pow', () => {
     const result2 = fc('2/3').pow(1.2);
     expect(result2.toString()).toEqual('1293319370881437/2103852523296128');
 
-    const result3 = fc('-999').pow(9999);
-    expect(result3.toString()).toEqual('-Infinity');
-
     const result4 = fc('2/3').pow(1 / 2);
     expect(result4.toString()).toEqual('6369051672525773/7800463371553962');
+
+    const result5 = fc('1/99999999').pow(9999);
+    expect(result5.toString()).toEqual('0');
   });
 
   it('can support negative pow', () => {
@@ -378,7 +378,13 @@ describe('fraction pow', () => {
     try {
       fc('888/999').pow(999);
     } catch (error) {
-      expect(error.message).toEqual('Pow reached Infinity/Infinity');
+      expect(error.message).toEqual('Numerator reached Infinity');
+    }
+
+    try {
+      fc('-999').pow(9999);
+    } catch (error) {
+      expect(error.message).toEqual('Numerator reached Infinity');
     }
   });
 });
@@ -511,30 +517,42 @@ describe('fraction clone', () => {
 
 describe('fraction ceil', () => {
   it('can handle ceil', () => {
-    const res1 = fc(1.5).ceil();
+    const res1 = fc(1.5)
+      .ceil()
+      .toNumber();
     expect(res1).toEqual(2);
 
-    const res2 = fc(-1.5).ceil();
+    const res2 = fc(-1.5)
+      .ceil()
+      .toNumber();
     expect(res2).toEqual(-1);
   });
 });
 
 describe('fraction floor', () => {
   it('can handle floor', () => {
-    const res1 = fc('3/2').floor();
+    const res1 = fc('3/2')
+      .floor()
+      .toNumber();
     expect(res1).toEqual(1);
 
-    const res2 = fc('-3/2').floor();
+    const res2 = fc('-3/2')
+      .floor()
+      .toNumber();
     expect(res2).toEqual(-2);
   });
 });
 
 describe('fraction round', () => {
   it('can handle round', () => {
-    const res1 = fc('3/2').round();
+    const res1 = fc('3/2')
+      .round()
+      .toNumber();
     expect(res1).toEqual(2);
 
-    const res2 = fc('-3/2').round();
+    const res2 = fc('-3/2')
+      .round()
+      .toNumber();
     expect(res2).toEqual(-1);
   });
 });

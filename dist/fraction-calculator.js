@@ -147,18 +147,14 @@ function adjustNegative(fraction) {
 function reduceFraction(fractionObj) {
   const { numerator, denominator } = fractionObj;
 
-  if (Number.isFinite(numerator) && Number.isFinite(denominator)) {
-    const gcd = getGCD(numerator, denominator);
+  const gcd = getGCD(numerator, denominator);
 
-    let fraction = {
-      numerator: numerator / gcd,
-      denominator: denominator / gcd,
-    };
+  let fraction = {
+    numerator: numerator / gcd,
+    denominator: denominator / gcd,
+  };
 
-    return fraction;
-  }
-
-  return fractionObj;
+  return fraction;
 }
 
 function reduceFractionToACommonDenominator(fractionA, fractionB) {
@@ -550,12 +546,21 @@ FractionCalculator.fn.pow = function(n) {
       };
     }
 
+    if (!Number.isFinite(result.denominator)) {
+      result = {
+        numerator: 0,
+        denominator: 1,
+      };
+    } else if (!Number.isFinite(result.numerator)) {
+      throw new Error('Numerator reached Infinity');
+    }
+
     this.fraction = result;
     this.fraction = adjustNegative(this.fraction);
 
     return this;
   } else {
-    throw new Error('Pow reached Infinity/Infinity');
+    throw new Error('Numerator reached Infinity');
   }
 };
 
@@ -615,7 +620,12 @@ FractionCalculator.fn.ceil = function() {
     fraction: { numerator, denominator },
   } = this;
 
-  return Math.ceil(numerator / denominator);
+  this.fraction = {
+    numerator: Math.ceil(numerator / denominator),
+    denominator: 1,
+  };
+
+  return this;
 };
 
 FractionCalculator.fn.floor = function() {
@@ -623,7 +633,12 @@ FractionCalculator.fn.floor = function() {
     fraction: { numerator, denominator },
   } = this;
 
-  return Math.floor(numerator / denominator);
+  this.fraction = {
+    numerator: Math.floor(numerator / denominator),
+    denominator: 1,
+  };
+
+  return this;
 };
 
 FractionCalculator.fn.round = function() {
@@ -631,7 +646,12 @@ FractionCalculator.fn.round = function() {
     fraction: { numerator, denominator },
   } = this;
 
-  return Math.round(numerator / denominator);
+  this.fraction = {
+    numerator: Math.round(numerator / denominator),
+    denominator: 1,
+  };
+
+  return this;
 };
 
 FractionCalculator.fn.equals = function(b) {
