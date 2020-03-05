@@ -602,10 +602,19 @@ describe('fraction mod', () => {
     expect(res1.toString()).toEqual('0');
 
     const res2 = fc('-29/3').mod(5);
-    expect(res2.toString()).toEqual('-14/3');
+    expect(res2.toString()).toEqual('1/3');
 
     const res3 = fc('158/5').mod('3/5');
     expect(res3.toString()).toEqual('2/5');
+
+    const res4 = fc(-7).mod(4);
+    expect(res4.toString()).toEqual('1');
+
+    const res5 = fc(7).mod(-4);
+    expect(res5.toString()).toEqual('-1');
+
+    const res6 = fc('29/3').mod(-5);
+    expect(res6.toString()).toEqual('-1/3');
   });
 });
 

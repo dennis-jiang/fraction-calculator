@@ -462,7 +462,12 @@ FractionCalculator.fn.mod = function(b) {
   const {
     fraction: { numerator, denominator },
   } = quotient;
-  const floorQuotient = parseInt(numerator / denominator);
+  let floorQuotient;
+  if (quotient.lessThan(0)) {
+    floorQuotient = Math.floor(numerator / denominator);
+  } else {
+    floorQuotient = parseInt(numerator / denominator);
+  }
   const result = this.minus(FractionCalculator(b).times(floorQuotient));
 
   return result;
