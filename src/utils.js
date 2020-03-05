@@ -86,3 +86,36 @@ export function getDecimalsCount(num) {
 
   return count;
 }
+
+export function getDecimalsFromFraction(numerator, denominator) {
+  // make sure numerator is less than denominator
+  const modObj = {};
+  const quotientArray = [];
+
+  let mod;
+  let index = 0;
+
+  while (true) {
+    mod = numerator % denominator;
+
+    if (mod === 0) {
+      return quotientArray.join('');
+    }
+
+    let existIndex = modObj[mod];
+    if (existIndex >= 0) {
+      let quotientLength = quotientArray.length;
+      quotientArray.splice(existIndex, 0, '(');
+      quotientArray.splice(quotientLength + 1, 0, ')');
+
+      return quotientArray.join('');
+    }
+
+    modObj[mod] = index;
+    index++;
+    numerator = mod * 10;
+
+    let quotient = parseInt(numerator / denominator);
+    quotientArray.push(quotient);
+  }
+}
