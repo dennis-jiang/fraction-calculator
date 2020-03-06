@@ -148,7 +148,7 @@ fc(3, 2);   // It is still 3/2
 
 #### Recurring decimal
 
-You can use `''`or`()`to mark recurring part.
+You can use `''`or`()`to mark recurring part. Please note if you input a long decimals(over 10 numbers), you may only get a closed fraction, not precise one.
 
 ```javascript
 fc("0.1'258'");   // 419/3330
@@ -282,7 +282,7 @@ fc('2.5(678)').toNumber(2);   // 2.567867867867868
 
 #### toRecurringDecimal()
 
-This API will show fraction in recurring decimal, recurring part will marked with `()`:
+This API will show fraction in recurring decimal, recurring part will marked with `()`. Please note recurring part can be very long, the search can be very slow if it is. So this library will only search first 3000 decimals, If still not find a pattern, it will output the whole 3000 numbers, like "0.1234567890.......".
 
 ```javascript
 fc('2/9').toRecurringDecimal();  // "0.(2)"

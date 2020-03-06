@@ -735,5 +735,15 @@ describe('fraction toRecurringDecimal', () => {
 
     const res17 = fc("-123.4'56'").toRecurringDecimal();
     expect(res17).toEqual('-123.4(56)');
+
+    const res18 = fc('1/3')
+      .plus(0.5)
+      .times('28/13')
+      .minus('7/15')
+      .div('87/23')
+      .pow(6)
+      .sqrt()
+      .toRecurringDecimal();
+    expect(res18.length).toEqual(3002);
   });
 });

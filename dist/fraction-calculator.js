@@ -217,6 +217,11 @@ function getDecimalsFromFraction(numerator, denominator) {
 
     let quotient = parseInt(numerator / denominator);
     quotientArray.push(quotient);
+
+    if (index >= 3000) {
+      // Recurring part can be very long, we only handle first 3000 numbers
+      return quotientArray.join('');
+    }
   }
 }
 
