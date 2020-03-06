@@ -1,6 +1,6 @@
 {
   "name": "fraction-calculator",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A simple fraction calculation library.",
   "main": "./dist/fraction-calculator.js",
   "scripts": {
@@ -38,7 +38,7 @@
     "prettier": "1.18.2",
     "babel-eslint": "9.0.0"
   },
-  "keywords":[
+  "keywords": [
     "JS",
     "JavaScript",
     "fraction",
