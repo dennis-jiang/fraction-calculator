@@ -1,6 +1,6 @@
 {
   "name": "fraction-calculator",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A simple fraction calculation library.",
   "main": "./dist/fraction-calculator.js",
   "scripts": {
