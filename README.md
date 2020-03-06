@@ -6,6 +6,7 @@ This is a library to calculate fraction. This library :
 3. can convert a recurring decimal to a fraction or convert it back
 4. supports IE
 5. has 100% UT coverage
+6. has 0 dependencies
 
 ## Usage
 
@@ -170,7 +171,7 @@ fc(0.5).plus('12/25').minus('1/3').times('1 7/9').div('2.1(3)').pow(6).sqrt().ce
 
 #### plus, minus, times, div,mod
 
-You can know what they are doing from their names. They can support all kinds of parameter that constractor supports.
+You can know what they are doing from their names. They can support all kinds of parameter that constractor supports. `mod` will get the same result as JS `%`.
 
 ```javascript
 fc(0.5)
@@ -180,6 +181,9 @@ fc(0.5)
   .div('2.1(3)')
   .mod('9/8')
   .toString(); // 97/180
+
+fc('-29/3').mod(5).toString();    // Result: -14/3 . The same as (-29/3) % 5
+fc('29/3').mod(-5).toString();    // Result: 14/3 . The same as (29/3) % -5
 ```
 
 #### pow(n)

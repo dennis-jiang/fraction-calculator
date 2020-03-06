@@ -1,7 +1,7 @@
 {
   "name": "fraction-calculator",
   "version": "1.0.2",
-  "description": "A simple fraction calculator.",
+  "description": "A simple fraction calculation library.",
   "main": "./dist/fraction-calculator.js",
   "scripts": {
     "test": "jest",
@@ -10,7 +10,8 @@
     "build:prod": "NODE_ENV=production webpack --config webpack.config.js",
     "build:dev": "NODE_ENV=development webpack --config webpack.config.js",
     "build:polyfill": "NODE_ENV=production POLYFILL=1 webpack --config webpack.config.js",
-    "open:cov": "open coverage/lcov-report/index.html"
+    "open:cov": "open coverage/lcov-report/index.html",
+    "publish": "yarn test && yarn build && npm publish"
   },
   "repository": {
     "type": "git",
@@ -36,5 +37,11 @@
     "eslint-plugin-prettier": "3.1.0",
     "prettier": "1.18.2",
     "babel-eslint": "9.0.0"
-  }
+  },
+  "keywords":[
+    "JS",
+    "JavaScript",
+    "fraction",
+    "calculation"
+  ]
 }

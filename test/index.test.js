@@ -606,6 +606,9 @@ describe('fraction mod', () => {
 
     const res3 = fc('158/5').mod('3/5');
     expect(res3.toString()).toEqual('2/5');
+
+    const res4 = fc('29/3').mod(-5);
+    expect(res4.toString()).toEqual('14/3');
   });
 });
 
