@@ -138,6 +138,9 @@ describe('FractionCalculator instance', () => {
 
     const result7 = fc('.22(8)');
     expect(result7.toString()).toEqual('103/450');
+
+    const result8 = fc('0.(123456789022222)');
+    expect(result8.toString()).toEqual('123456789022222/999999999999999');
   });
 
   it('can handle negative cycle number', () => {
@@ -161,6 +164,9 @@ describe('FractionCalculator instance', () => {
 
     const result7 = fc('-.22(8)');
     expect(result7.toString()).toEqual('-103/450');
+
+    const result8 = fc('-0.(123456789022222)');
+    expect(result8.toString()).toEqual('-123456789022222/999999999999999');
   });
 
   it('can handle two numbers', () => {

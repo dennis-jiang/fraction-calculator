@@ -148,7 +148,7 @@ fc(3, 2);   // It is still 3/2
 
 #### Recurring decimal
 
-You can use `''`or`()`to mark recurring part. Please note if you input a long decimals(over 10 numbers), you may only get a closed fraction, not precise one.
+You can use `''`or`()`to mark recurring part. Please note if you input a long decimals(over 15 numbers), you may only get a closed fraction, not precise one.
 
 ```javascript
 fc("0.1'258'");   // 419/3330

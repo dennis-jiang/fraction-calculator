@@ -268,19 +268,19 @@ function _getFractionFromCycleNumber(str, reg, isPositive) {
   const parts = str.match(reg);
   let intPart = parts[1] || '0';
   const nonCyclePart = parts[2];
+  const nonCycleLength = nonCyclePart.length;
   const cyclePart = parts[3];
   const cycleLength = cyclePart.length;
   const decimalsPart = `${nonCyclePart}${cyclePart}`;
-  const decimalsLength = decimalsPart.length;
 
-  const firstDemon = Number(`1e${decimalsLength}`);
-  let firstFraction = `${decimalsPart}/${firstDemon}`;
+  const firstDemon = Number(`1e${nonCycleLength}`);
+  let firstFraction = `${nonCyclePart}/${firstDemon}`;
 
   let secondDemon = '';
   for (let i = 0; i < cycleLength; i++) {
     secondDemon = secondDemon + '9';
   }
-  secondDemon = Number(secondDemon) * Number(`1e${decimalsLength}`);
+  secondDemon = Number(secondDemon) * Number(`1e${nonCycleLength}`);
   const secondFraction = `${cyclePart}/${secondDemon}`;
 
   const final = FractionCalculator(firstFraction)
