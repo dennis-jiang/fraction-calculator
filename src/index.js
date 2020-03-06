@@ -6,6 +6,7 @@ import {
   getLCM,
   getDecimalsCount,
   getDecimalsFromFraction,
+  adjustToInteger,
 } from './utils';
 
 function FractionCalculator(numStr, denominator) {
@@ -286,8 +287,10 @@ FractionCalculator.fn.minus = function(b) {
 };
 
 FractionCalculator.fn.times = function(b) {
-  const fractionA = this.fraction;
-  const fractionB = _getFraction(b);
+  let fractionA = this.fraction;
+  let fractionB = _getFraction(b);
+  fractionA = adjustToInteger(fractionA);
+  fractionB = adjustToInteger(fractionB);
 
   const result = {
     numerator: fractionA.numerator * fractionB.numerator,

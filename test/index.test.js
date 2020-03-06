@@ -266,6 +266,9 @@ describe('fraction times', () => {
 
     const result3 = fc(0).times('0/56');
     expect(result3.toString()).toEqual('0');
+
+    const result4 = fc('1/3.5').times(0.5);
+    expect(result4.toString()).toEqual('1/7');
   });
 
   it('can support negative times positive', () => {
@@ -355,10 +358,10 @@ describe('fraction pow', () => {
     expect(result.toString()).toEqual('4/9');
 
     const result2 = fc('2/3').pow(1.2);
-    expect(result2.toString()).toEqual('1293319370881437/2103852523296128');
+    expect(result2.toString()).toEqual('2871745887492587/4671491023558190');
 
     const result4 = fc('2/3').pow(1 / 2);
-    expect(result4.toString()).toEqual('6369051672525773/7800463371553962');
+    expect(result4.toString()).toEqual('3535533905932738/4330127018922193');
 
     const result5 = fc('1/99999999').pow(9999);
     expect(result5.toString()).toEqual('0');
@@ -369,7 +372,7 @@ describe('fraction pow', () => {
     expect(result.toString()).toEqual('9/4');
 
     const result2 = fc('2/3').pow(-1 / 2);
-    expect(result2.toString()).toEqual('7800463371553963/6369051672525772');
+    expect(result2.toString()).toEqual('787295821622217/642824346533225');
 
     const result3 = fc('4').pow(-1 / 2);
     expect(result3.toString()).toEqual('1/2');
@@ -401,7 +404,7 @@ describe('fraction sqrt', () => {
     expect(result.toString()).toEqual('2');
 
     const result2 = fc('2').sqrt();
-    expect(result2.toString()).toEqual('6369051672525773/4503599627370496');
+    expect(result2.toString()).toEqual('1767766952966369/1250000000000000');
   });
 });
 

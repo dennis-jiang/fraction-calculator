@@ -1,3 +1,15 @@
+export function getDecimalsCount(num) {
+  if (Number.isInteger(num)) {
+    return 0;
+  }
+
+  const numStr = `${num}`;
+
+  const count = numStr.length - numStr.indexOf('.') - 1;
+
+  return count;
+}
+
 export function getGCD(a, b) {
   // get greatest common divisor(GCD)
   // GCD(a, b) = GCD(b, a % b)
@@ -40,20 +52,39 @@ export function adjustNegative(fraction) {
   return fraction;
 }
 
-export function reduceFraction(fractionObj) {
-  const { numerator, denominator } = fractionObj;
+export function adjustToInteger(fractionObj) {
+  let { numerator, denominator } = fractionObj;
+  // zoom a and b to integer
+  const decimalsA = getDecimalsCount(numerator);
+  const decimalsB = getDecimalsCount(denominator);
+  const decimals = decimalsA >= decimalsB ? decimalsA : decimalsB;
+  const zoom = Number(`1e${decimals}`);
+  numerator = numerator * zoom;
+  denominator = denominator * zoom;
 
+  return {
+    numerator,
+    denominator,
+  };
+}
+
+export function reduceFraction(fractionObj) {
+  let fraction = adjustToInteger(fractionObj);
+
+  const { numerator, denominator } = fraction;
   const gcd = getGCD(numerator, denominator);
 
-  let fraction = {
+  let fractionRes = {
     numerator: numerator / gcd,
     denominator: denominator / gcd,
   };
 
-  return fraction;
+  return fractionRes;
 }
 
 export function reduceFractionToACommonDenominator(fractionA, fractionB) {
+  fractionA = adjustToInteger(fractionA);
+  fractionB = adjustToInteger(fractionB);
   const denominatorA = fractionA.denominator;
   const denominatorB = fractionB.denominator;
   const lcm = getLCM(denominatorA, denominatorB);
@@ -73,14 +104,6 @@ export function reduceFractionToACommonDenominator(fractionA, fractionB) {
       denominator: lcm,
     },
   };
-}
-
-export function getDecimalsCount(num) {
-  const numStr = `${num}`;
-
-  const count = numStr.length - numStr.indexOf('.') - 1;
-
-  return count;
 }
 
 export function getDecimalsFromFraction(numerator, denominator) {
