@@ -51,7 +51,6 @@ function _getFractionFromCycleNumber(str, reg, isPositive) {
   const nonCycleLength = nonCyclePart.length;
   const cyclePart = parts[3];
   const cycleLength = cyclePart.length;
-  const decimalsPart = `${nonCyclePart}${cyclePart}`;
 
   const firstDemon = Number(`1e${nonCycleLength}`);
   let firstFraction = `${nonCyclePart}/${firstDemon}`;
