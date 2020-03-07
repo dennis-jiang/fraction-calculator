@@ -266,6 +266,10 @@ FractionCalculator.fn.init.prototype = FractionCalculator.fn;
 
 function _getFractionFromNumber(num) {
   let number = Number(num);
+  let sign = '';
+  if (number < 0) {
+    sign = '-';
+  }
 
   if (!Number.isFinite(number)) {
     throw new Error('Unsupported number NaN or Infinity');
@@ -278,12 +282,18 @@ function _getFractionFromNumber(num) {
     };
   } else {
     const decimalsCount = getDecimalsCount(num);
-    let fraction = {
-      numerator: num * Number(`1e${decimalsCount}`),
-      denominator: Number(`1e${decimalsCount}`),
+    const intPart = Math.abs(parseInt(number));
+    const decimalPart = `${number}`.substr(`${number}`.indexOf('.') + 1);
+    const denominator = Number(`1e${decimalsCount}`);
+    const decimal = FractionCalculator(`${decimalPart}/${denominator}`);
+    const { fraction } = decimal.plus(intPart);
+
+    let res = {
+      numerator: Number(`${sign}${fraction.numerator}`),
+      denominator: fraction.denominator,
     };
 
-    return fraction;
+    return res;
   }
 }
 
@@ -430,7 +440,7 @@ FractionCalculator.lcm = function(a, b) {
 };
 
 // instance methods
-FractionCalculator.fn.toString = function(withWholePart = false) {
+FractionCalculator.fn.toFraction = function(withWholePart = false) {
   let fraction = this.fraction;
 
   if (!FractionCalculator.DISABLE_REDUCE) {

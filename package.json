@@ -10,8 +10,7 @@
     "build:prod": "NODE_ENV=production webpack --config webpack.config.js",
     "build:dev": "NODE_ENV=development webpack --config webpack.config.js",
     "build:polyfill": "NODE_ENV=production POLYFILL=1 webpack --config webpack.config.js",
-    "open:cov": "open coverage/lcov-report/index.html",
-    "publish:all": "yarn test && yarn build && npm publish"
+    "open:cov": "open coverage/lcov-report/index.html"
   },
   "repository": {
     "type": "git",

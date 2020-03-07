@@ -10,5 +10,5 @@ it('can support import', () => {
     .pow(1.5)
     .sqrt();
 
-  expect(res.toString()).toEqual('1091016056289954/918299538664573');
+  expect(res.toFraction()).toEqual('1091016056289954/918299538664573');
 });

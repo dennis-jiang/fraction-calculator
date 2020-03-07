@@ -1,12 +1,14 @@
 # fraction-calculator
 This is a library to calculate fraction. This library : 
 
-1. can calculate(plus, minus, times, div, mod...) a fraction
-2. can power or sqrt a fraction.
-3. can convert a recurring decimal to a fraction or convert it back
-4. supports IE
-5. has 100% UT coverage
-6. has 0 dependencies
+1. can calculate floating number precisely
+2. can calculate(plus, minus, times, div, mod...) a fraction
+3. can power or sqrt a fraction.
+4. can convert a decimal to a fraction and convert it back
+5. can convert a recurring decimal to a fraction and convert it back
+6. supports IE
+7. has 100% UT coverage
+8. has 0 dependencies
 
 ## Usage
 
@@ -28,7 +30,7 @@ import fc from 'fraction-calculator';
 const fc = require('fraction-calculator');
 
 // Use
-fc(0.5).plus('12/25').minus('1/3').times('1 7/9').div('2 1/3').pow(6).sqrt().toString();      // 467288576/3906984375
+fc(0.5).plus('12/25').minus('1/3').times('1 7/9').div('2 1/3').pow(6).sqrt().toFraction();      // 467288576/3906984375
 ```
 
 ### Use it in modern browsers
@@ -39,7 +41,7 @@ This library has used some ES6 features, if you only target modern browsers, you
 <html>
   <script src="./dist/fraction-calculator.min.js"></script>
   <script>
-   var res = fc(0.5).plus('12/25').minus('1/3').times('1 7/9').div('2 1/3').pow(6).sqrt().toString();
+   var res = fc(0.5).plus('12/25').minus('1/3').times('1 7/9').div('2 1/3').pow(6).sqrt().toFraction();
    console.log(res);   // 467288576/3906984375
   </script>
 </html>
@@ -48,6 +50,37 @@ This library has used some ES6 features, if you only target modern browsers, you
 ### Use it in old browsers
 
 If you also target some old browsers, like IE, you can use `./dist/fraction-calculator.polyfill.min.js`, it is built with `babel-polyfill`。
+
+## Features
+
+### Calculating floating number precisely
+
+```javascript
+0.1 + 0.2;         // JS: 0.30000000000000004
+fc(0.1).plus(0.2).toNumber();    // 0.3
+```
+
+### Calculating fraction
+
+```javascript
+fc(0.5).plus('12/25').minus('1/3').toFraction();   // "97/150"
+```
+
+### Converting a decimal to a fraction and convert it back
+
+```javascript
+fc(0.1478).toFraction();   // 739/5000 
+fc('739/5000').toNumber();  // 0.1478
+```
+
+### Converting a recurring decimal to a fraction and convert it back
+
+```javascript
+fc('1.2(1478)').toFraction(); // 60733/49995
+fc('60733/49995').toRecurringDecimal(); // 1.2(1478)
+```
+
+
 
 ## API
 
@@ -86,7 +119,7 @@ fc().greaterThan()
 fc().lessThan()
 
 // display api
-fc().toString()
+fc().toFraction()
 fc().toFixed()
 fc().toNumber()
 fc().toRecurringDecimal()
@@ -166,24 +199,21 @@ fc(fc("0.1'258'"));   // 419/3330
 All calculation api are chainable, all return value is `this`. It means you can call it like this:
 
 ```javascript
-fc(0.5).plus('12/25').minus('1/3').times('1 7/9').div('2.1(3)').pow(6).sqrt().ceil().floor().round().toString();  // 1
+fc(0.5).plus('12/25').minus('1/3').times('1 7/9').div('2.1(3)').pow(6).sqrt().ceil().floor().round().toFraction();  // 1
 ```
 
 #### plus, minus, times, div,mod
 
-You can know what they are doing from their names. They can support all kinds of parameter that constractor supports. `mod` will get the same result as JS `%`.
+You can know what they are doing from their names. They can support one parameter in all kinds that constractor supports. `mod` will get the same result as JS `%`.
 
 ```javascript
-fc(0.5)
-  .plus('12/25')
-  .minus('1/3')
-  .times('1 7/9')
-  .div('2.1(3)')
-  .mod('9/8')
-  .toString(); // 97/180
+fc(0.5).plus('12/25').toFraction();   // 49/50
+fc(0.5).minus('12/25').toFraction();  // 1/50
+fc(0.5).times('12/25').toFraction();  // 6/25
+fc(0.5).div('12/25').toFraction();  // 25/24
 
-fc('-29/3').mod(5).toString();    // Result: -14/3 . The same as (-29/3) % 5
-fc('29/3').mod(-5).toString();    // Result: 14/3 . The same as (29/3) % -5
+fc('-29/3').mod(5).toFraction();    // Result: -14/3 . The same as (-29/3) % 5
+fc('29/3').mod(-5).toFraction();    // Result: 14/3 . The same as (29/3) % -5
 ```
 
 #### pow(n)
@@ -209,7 +239,7 @@ fc('-5/3').sqrt();    // Error: Sqrt number cannot less than 0
 Get the absolute value.
 
 ```javascript
-fc(-0.5).abs().toString();   // "1/2"
+fc(-0.5).abs().toFraction();   // "1/2"
 ```
 
 #### neg()
@@ -217,9 +247,9 @@ fc(-0.5).abs().toString();   // "1/2"
 Get the negation.
 
 ```javascript
-fc(-0.5).neg().toString();   // "1/2"
+fc(-0.5).neg().toFraction();   // "1/2"
 
-fc(0.5).neg().toString();   // "-1/2"
+fc(0.5).neg().toFraction();   // "-1/2"
 ```
 
 #### inverse()
@@ -227,7 +257,7 @@ fc(0.5).neg().toString();   // "-1/2"
 Get the inverse.
 
 ```javascript
-fc(0.5).inverse().toString();   // "2"
+fc(0.5).inverse().toFraction();   // "2"
 ```
 
 #### ceil()
@@ -244,7 +274,7 @@ Based on `Math.round()`.
 
 ### Compare API
 
-There are 3 compare API,`equals`,`greaterThan`,`lessThan`, they also support all kinds of parameter constractor supports. Their return valus are boolean.
+There are 3 compare API,`equals`,`greaterThan`,`lessThan`. They can support one parameter in all kinds that constractor supports. Their return valus are boolean.
 
 ```javascript
 fc('3/2').equals('6/4');   // true
@@ -254,14 +284,14 @@ fc('-3/2').lessThan('-4/2');  // false
 
 ### Display API
 
-#### toString(withWholePart = false)
+#### toFraction(withWholePart = false)
 
 This API will show fraction in string, but if it is an integer, it will only show integer in string.This api has an optional parameter`withWholePart`, default is `false`. You can set it to `true` to show whole part.
 
 ```javascript
-fc(5).toString(); // "5"
-fc(5.5).toString(); // "11/2"
-fc(5.5).toString(true); // "5 1/2"
+fc(5).toFraction(); // "5"
+fc(5.5).toFraction(); // "11/2"
+fc(5.5).toFraction(true); // "5 1/2"
 ```
 
 #### toFixed(n)
@@ -329,8 +359,8 @@ This API will return a copy of current instance:
 let fc1 = fc(0.5);
 let fc2 = fc1.clone();
 
-fc2.minus('1/3').toString();   //  "1/6"
-fc1.toString();   //  "1/2"
+fc2.minus('1/3').toFraction();   //  "1/6"
+fc1.toFraction();   //  "1/2"
 ```
 
 ### Config
@@ -339,19 +369,19 @@ This library can work well without any config. But there is still a global confi
 
 ```javascript
 let fc1 = fc('25/45'); 
-fc1.toString();     // 5/9
+fc1.toFraction();     // 5/9
 
 fc.DISABLE_REDUCE = true;  
-fc1.toString();     // 25/45
+fc1.toFraction();     // 25/45
 
 fc.DISABLE_REDUCE = false;  
-fc1.toString();     // 5/9
+fc1.toFraction();     // 5/9
 ```
 
 If you disable reducing, then call `pow` or `sqrt`, you may get decimals in numerator and denominator:
 
 ```javascript
 fc.DISABLE_REDUCE = true;  
-fc('5/3').pow(1.5).toString();     // "11.180339887498949/5.196152422706632" 
+fc('5/3').pow(1.5).toFraction();     // "11.180339887498949/5.196152422706632" 
 ```
 
