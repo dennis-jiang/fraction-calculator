@@ -1,6 +1,6 @@
 {
   "name": "fraction-calculator",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "A precise fraction and decimal calculation library.",
   "main": "./dist/fraction-calculator.js",
   "scripts": {
