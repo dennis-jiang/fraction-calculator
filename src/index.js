@@ -151,6 +151,7 @@ const _getFraction = function(numStr, denominator) {
     };
 
     fraction = adjustNegative(fraction);
+    fraction = adjustToInteger(fraction);
 
     return fraction;
   } else if (typeof numStr === 'number') {

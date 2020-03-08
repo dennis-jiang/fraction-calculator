@@ -31,7 +31,7 @@ export function getLCM(a, b) {
   // LCM(a, b) = (a / GCD(a, b)) * (b / GCD(a, b)) * GCD(a, b)
   //           = a * b / GCD(a, b)
 
-  return (a * b) / getGCD(a, b);
+  return (Math.abs(a) * Math.abs(b)) / getGCD(a, b);
 }
 
 export function adjustNegative(fraction) {

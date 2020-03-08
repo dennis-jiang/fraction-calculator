@@ -33,6 +33,13 @@ describe('FractionCalculator instance', () => {
       numerator: 1478,
       denominator: 10000,
     });
+
+    const instance3 = fc(0.001478);
+
+    expect(instance3.fraction).toEqual({
+      numerator: 1478,
+      denominator: 1000000,
+    });
   });
 
   it('can support negative decimals', () => {
@@ -48,6 +55,13 @@ describe('FractionCalculator instance', () => {
     expect(instance2.fraction).toEqual({
       numerator: -1478,
       denominator: 10000,
+    });
+
+    const instance3 = fc(-0.001478);
+
+    expect(instance3.fraction).toEqual({
+      numerator: -1478,
+      denominator: 1000000,
     });
   });
 

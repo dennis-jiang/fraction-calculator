@@ -135,7 +135,7 @@ function getLCM(a, b) {
   // LCM(a, b) = (a / GCD(a, b)) * (b / GCD(a, b)) * GCD(a, b)
   //           = a * b / GCD(a, b)
 
-  return (a * b) / getGCD(a, b);
+  return (Math.abs(a) * Math.abs(b)) / getGCD(a, b);
 }
 
 function adjustNegative(fraction) {
@@ -408,6 +408,7 @@ const _getFraction = function(numStr, denominator) {
     };
 
     fraction = adjustNegative(fraction);
+    fraction = adjustToInteger(fraction);
 
     return fraction;
   } else if (typeof numStr === 'number') {
