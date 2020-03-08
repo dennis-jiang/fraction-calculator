@@ -27,10 +27,10 @@ describe('FractionCalculator instance', () => {
       denominator: 100,
     });
 
-    const instance2 = fc(1.1478);
+    const instance2 = fc(0.1478);
 
     expect(instance2.fraction).toEqual({
-      numerator: 11478,
+      numerator: 1478,
       denominator: 10000,
     });
   });
@@ -43,10 +43,10 @@ describe('FractionCalculator instance', () => {
       denominator: 100,
     });
 
-    const instance2 = fc(-1.1478);
+    const instance2 = fc(-0.1478);
 
     expect(instance2.fraction).toEqual({
-      numerator: -11478,
+      numerator: -1478,
       denominator: 10000,
     });
   });
@@ -390,6 +390,9 @@ describe('fraction pow', () => {
 
     const result3 = fc('4').pow(-1 / 2);
     expect(result3.toFraction()).toEqual('1/2');
+
+    const result4 = fc('3/2').pow(-1 / 2);
+    expect(result4.toFraction()).toEqual('642824346533225/787295821622217');
   });
 
   it('can support 0', () => {

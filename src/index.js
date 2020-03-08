@@ -24,32 +24,20 @@ FractionCalculator.fn.init.prototype = FractionCalculator.fn;
 
 function _getFractionFromNumber(num) {
   let number = Number(num);
-  let sign = '';
-  if (number < 0) {
-    sign = '-';
-  }
+
+  let res = {
+    numerator: number,
+    denominator: 1,
+  };
 
   if (!Number.isFinite(number)) {
     throw new Error('Unsupported number NaN or Infinity');
   }
 
   if (Number.isInteger(number)) {
-    return {
-      numerator: number,
-      denominator: 1,
-    };
+    return res;
   } else {
-    const decimalsCount = getDecimalsCount(num);
-    const intPart = Math.abs(parseInt(number));
-    const decimalPart = `${number}`.substr(`${number}`.indexOf('.') + 1);
-    const denominator = Number(`1e${decimalsCount}`);
-    const decimal = FractionCalculator(`${decimalPart}/${denominator}`);
-    const { fraction } = decimal.plus(intPart);
-
-    let res = {
-      numerator: Number(`${sign}${fraction.numerator}`),
-      denominator: fraction.denominator,
-    };
+    res = adjustToInteger(res);
 
     return res;
   }

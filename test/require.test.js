@@ -10,5 +10,5 @@ it('can support require', () => {
     .pow(1.5)
     .sqrt();
 
-  expect(res.toFraction()).toEqual('1091016056289954/918299538664573');
+  expect(res.toFraction()).toEqual('9819144506609588/8264695847981157');
 });

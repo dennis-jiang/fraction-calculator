@@ -156,15 +156,30 @@ function adjustNegative(fraction) {
   return fraction;
 }
 
+function convertDecimalToInteger(num) {
+  return Number(`${num}`.replace('.', ''));
+}
+
 function adjustToInteger(fractionObj) {
   let { numerator, denominator } = fractionObj;
-  // zoom a and b to integer
+  if (Number.isInteger(numerator) && Number.isInteger(denominator)) {
+    return {
+      numerator,
+      denominator,
+    };
+  }
+
   const decimalsA = getDecimalsCount(numerator);
   const decimalsB = getDecimalsCount(denominator);
-  const decimals = decimalsA >= decimalsB ? decimalsA : decimalsB;
-  const zoom = Number(`1e${decimals}`);
-  numerator = numerator * zoom;
-  denominator = denominator * zoom;
+  const diffCount = decimalsA - decimalsB;
+  numerator = convertDecimalToInteger(numerator);
+  denominator = convertDecimalToInteger(denominator);
+
+  if (diffCount > 0) {
+    denominator = denominator * Number(`1e${diffCount}`);
+  } else if (diffCount < 0) {
+    numerator = numerator * Number(`1e${-diffCount}`);
+  }
 
   return {
     numerator,
@@ -266,32 +281,20 @@ FractionCalculator.fn.init.prototype = FractionCalculator.fn;
 
 function _getFractionFromNumber(num) {
   let number = Number(num);
-  let sign = '';
-  if (number < 0) {
-    sign = '-';
-  }
+
+  let res = {
+    numerator: number,
+    denominator: 1,
+  };
 
   if (!Number.isFinite(number)) {
     throw new Error('Unsupported number NaN or Infinity');
   }
 
   if (Number.isInteger(number)) {
-    return {
-      numerator: number,
-      denominator: 1,
-    };
+    return res;
   } else {
-    const decimalsCount = getDecimalsCount(num);
-    const intPart = Math.abs(parseInt(number));
-    const decimalPart = `${number}`.substr(`${number}`.indexOf('.') + 1);
-    const denominator = Number(`1e${decimalsCount}`);
-    const decimal = FractionCalculator(`${decimalPart}/${denominator}`);
-    const { fraction } = decimal.plus(intPart);
-
-    let res = {
-      numerator: Number(`${sign}${fraction.numerator}`),
-      denominator: fraction.denominator,
-    };
+    res = adjustToInteger(res);
 
     return res;
   }

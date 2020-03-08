@@ -52,15 +52,30 @@ export function adjustNegative(fraction) {
   return fraction;
 }
 
+export function convertDecimalToInteger(num) {
+  return Number(`${num}`.replace('.', ''));
+}
+
 export function adjustToInteger(fractionObj) {
   let { numerator, denominator } = fractionObj;
-  // zoom a and b to integer
+  if (Number.isInteger(numerator) && Number.isInteger(denominator)) {
+    return {
+      numerator,
+      denominator,
+    };
+  }
+
   const decimalsA = getDecimalsCount(numerator);
   const decimalsB = getDecimalsCount(denominator);
-  const decimals = decimalsA >= decimalsB ? decimalsA : decimalsB;
-  const zoom = Number(`1e${decimals}`);
-  numerator = numerator * zoom;
-  denominator = denominator * zoom;
+  const diffCount = decimalsA - decimalsB;
+  numerator = convertDecimalToInteger(numerator);
+  denominator = convertDecimalToInteger(denominator);
+
+  if (diffCount > 0) {
+    denominator = denominator * Number(`1e${diffCount}`);
+  } else if (diffCount < 0) {
+    numerator = numerator * Number(`1e${-diffCount}`);
+  }
 
   return {
     numerator,
