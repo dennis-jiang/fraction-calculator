@@ -307,7 +307,7 @@ fc('2.5(678)').toFixed(2);   // 2.57
 This will show all decimals JS can handle:
 
 ```javascript
-fc('2.5(678)').toNumber(2);   // 2.567867867867868
+fc('2.5(678)').toNumber();   // 2.567867867867868
 ```
 
 #### toRecurringDecimal()
