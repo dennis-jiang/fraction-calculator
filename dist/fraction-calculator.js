@@ -416,7 +416,7 @@ const _getFraction = function(numStr, denominator) {
   } else if (typeof numStr === 'string') {
     return _getFractionFromString(numStr);
   } else if (numStr instanceof FractionCalculator) {
-    return numStr.fraction;
+    return { ...numStr.fraction };
   }
 
   throw new Error(`Unsupported parameter ${numStr}`);
@@ -698,19 +698,19 @@ FractionCalculator.fn.round = function() {
 };
 
 FractionCalculator.fn.equals = function(b) {
-  let result = this.minus(b);
+  let result = this.clone().minus(b);
 
   return result.fraction.numerator === 0;
 };
 
 FractionCalculator.fn.greaterThan = function(b) {
-  let result = this.minus(b);
+  let result = this.clone().minus(b);
 
   return result.fraction.numerator > 0;
 };
 
 FractionCalculator.fn.lessThan = function(b) {
-  let result = this.minus(b);
+  let result = this.clone().minus(b);
 
   return result.fraction.numerator < 0;
 };

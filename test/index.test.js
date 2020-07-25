@@ -786,4 +786,17 @@ describe('fraction toRecurringDecimal', () => {
       .toRecurringDecimal();
     expect(res18.length).toEqual(3002);
   });
+
+  it('greaterThan should not modify origin fraction', () => {
+    const a = fc(10);
+    const b = fc(5);
+
+    b.greaterThan(a);
+
+    expect(a.fraction.numerator).toEqual(10);
+    expect(a.fraction.denominator).toEqual(1);
+
+    expect(b.fraction.numerator).toEqual(5);
+    expect(b.fraction.denominator).toEqual(1);
+  });
 });
